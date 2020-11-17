@@ -1,0 +1,19 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "A simple final project for web development and architecture information system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gafable/final-project.git"
+  },
+  "author": "Group 1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gafable/final-project/issues"
+  },
+  "homepage": "https://github.com/gafable/final-project#readme"
+}
