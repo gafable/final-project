@@ -31,6 +31,18 @@ database.connect()
 
 // ---- Define all application routes ---- //
 
+app.get('/',(req,res)=>{
+    res.render('pages/index',{
+        title : 'Home page'
+    })
+})
+
+app.get('/rooms',(req,res)=>{
+    res.render('pages/rooms/roomlist',{
+        title : 'Home page'
+    })
+})
+
 
 
 app.listen(port, console.log(`Application is running at port ${port}`))
