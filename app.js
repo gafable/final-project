@@ -1,4 +1,4 @@
-// ---- Require all application dependencies. ---- //
+// ---- Require all module dependencies. ---- //
 
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
@@ -14,7 +14,7 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// ---- App template engine ---- //
+// ---- Set template engine ---- //
 
 app.use(expressLayouts);
 app.set('view engine', 'ejs')
