@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dbUrl = "mongodb://localhost:27017/dbname"
+const dbUrl = "mongodb://localhost:27017/roomreservation"
 
 const connectToDatabase = () => {
     mongoose.
