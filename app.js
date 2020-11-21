@@ -31,18 +31,20 @@ database.connect()
 
 // ---- Define all application routes ---- //
 
-app.get('/',(req,res)=>{
-    res.render('pages/index',{
-        title : 'Home page'
+const adminPagesRoutes = require('./routes/AdminPagesRoutes')
+
+app.get('/', (req, res) => {
+    res.render('pages/index')
+})
+
+app.get('/rooms', (req, res) => {
+    res.render('pages/rooms/roomlist', {
+        title: 'Home page'
     })
 })
 
-app.get('/rooms',(req,res)=>{
-    res.render('pages/rooms/roomlist',{
-        title : 'Home page'
-    })
-})
 
 
+app.use('/admin', adminPagesRoutes)
 
 app.listen(port, console.log(`Application is running at port ${port}`))
