@@ -33,15 +33,17 @@ database.connect()
 
 
 // --- Directing Home Page --- //
-app.get('/',(req,res)=>{
-    res.render('pages/index',{
-        title : 'Home page'
+app.get('/', (req, res) => {
+    res.render('pages/index', {
+        title: 'Home page'
     })
 })
 
 const authRoutes = require('./modules/auth/routes/AuthRoutes')
 const adminPagesRoutes = require('./routes/AdminPagesRoutes')
 const accountRoutes = require('./modules/account/routes/AccountRoutes')
+const roomRoutes = require('./routes/RoomsRoute')
+const reportRoutes = require('./routes/ReportsRoute')
 
 app.get('/', (req, res) => {
     res.render('pages/index')
@@ -54,23 +56,23 @@ app.get('/rooms', (req, res) => {
 });
 
 // --- Directing Room List Page --- //
-app.get('/rooms',(req,res)=>{
-    res.render('pages/rooms/roomlist',{
-        title : 'Room Lists'
+app.get('/rooms', (req, res) => {
+    res.render('pages/rooms/roomlist', {
+        title: 'Room Lists'
     })
 });
 
 // --- Directing Blog Page --- //
-app.get('/blog',(req,res)=>{
-    res.render('pages/blog',{
-        title : 'Blog'
+app.get('/blog', (req, res) => {
+    res.render('pages/blog', {
+        title: 'Blog'
     })
 });
 
 // --- Directing Contact Page --- //
-app.get('/contact',(req,res)=>{
-    res.render('pages/contact',{
-        title : 'Contact'
+app.get('/contact', (req, res) => {
+    res.render('pages/contact', {
+        title: 'Contact'
     })
 });
 app.get('/test', (req, res) => {
@@ -87,7 +89,7 @@ app.get('/services', (req, res) => {
 
 // --- Directing Login Page --- //
 app.get('/login', (req, res) => {
-    res.render ('auth/login',{
+    res.render('auth/login', {
         title: 'Login'
     })
 });
@@ -97,5 +99,7 @@ app.get('/login', (req, res) => {
 app.use('/auth', authRoutes)
 app.use('/admin', adminPagesRoutes)
 app.use('/accounts', accountRoutes)
+app.use('/reports', reportRoutes)
+app.use('/rooms', roomRoutes)
 
 app.listen(port, console.log(`Application is running at port ${port}`))
