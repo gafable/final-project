@@ -31,17 +31,48 @@ database.connect()
 
 // ---- Define all application routes ---- //
 
+
+// --- Directing Home Page --- //
 app.get('/',(req,res)=>{
     res.render('pages/index',{
         title : 'Home page'
     })
-})
+});
 
+// --- Directing Room List Page --- //
 app.get('/rooms',(req,res)=>{
     res.render('pages/rooms/roomlist',{
-        title : 'Home page'
+        title : 'Room Lists'
     })
-})
+});
+
+// --- Directing Blog Page --- //
+app.get('/blog',(req,res)=>{
+    res.render('pages/blog',{
+        title : 'Blog'
+    })
+});
+
+// --- Directing Contact Page --- //
+app.get('/contact',(req,res)=>{
+    res.render('pages/contact',{
+        title : 'Contact'
+    })
+});
+
+app.get('/services', (req, res) => {
+    res.render('pages/services', {
+        title: 'Services'
+    })
+});
+
+// --- Directing Login Page --- //
+app.get('/login', (req, res) => {
+    res.render ('auth/login',{
+        title: 'Login'
+    })
+});
+
 
 
 

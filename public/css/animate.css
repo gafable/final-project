@@ -2,7 +2,7 @@
 
 
 .animated {
-  -webkit-animation-duration: 5s;
+  -webkit-animation-duration: 50s;
   animation-duration: 5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
