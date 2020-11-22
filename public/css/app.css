@@ -1,0 +1,4 @@
+.bg-auth {
+    background-image: url('./../images/slider2.jpg') !important;
+    background-size: cover;
+}

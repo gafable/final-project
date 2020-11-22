@@ -1,4 +1,4 @@
-// ---- Require all application dependencies. ---- //
+// ---- Require all module dependencies. ---- //
 
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
@@ -14,7 +14,7 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// ---- App template engine ---- //
+// ---- Set template engine ---- //
 
 app.use(expressLayouts);
 app.set('view engine', 'ejs')
@@ -22,7 +22,7 @@ app.set('layout', './layouts/app')
 
 // ---- App static directories front-end assets ---- //
 
-app.use(express.static('public'))
+app.use('/public', express.static('public'))
 
 // ---- Stablish Database connection ---- //
 
@@ -36,6 +36,20 @@ database.connect()
 app.get('/',(req,res)=>{
     res.render('pages/index',{
         title : 'Home page'
+    })
+})
+
+const authRoutes = require('./modules/auth/routes/AuthRoutes')
+const adminPagesRoutes = require('./routes/AdminPagesRoutes')
+const accountRoutes = require('./modules/account/routes/AccountRoutes')
+
+app.get('/', (req, res) => {
+    res.render('pages/index')
+})
+
+app.get('/rooms', (req, res) => {
+    res.render('pages/rooms/roomlist', {
+        title: 'Home page'
     })
 });
 
@@ -59,6 +73,11 @@ app.get('/contact',(req,res)=>{
         title : 'Contact'
     })
 });
+app.get('/test', (req, res) => {
+    res.render('pages/test', {
+        layout: ''
+    })
+});
 
 app.get('/services', (req, res) => {
     res.render('pages/services', {
@@ -75,5 +94,8 @@ app.get('/login', (req, res) => {
 
 
 
+app.use('/auth', authRoutes)
+app.use('/admin', adminPagesRoutes)
+app.use('/accounts', accountRoutes)
 
 app.listen(port, console.log(`Application is running at port ${port}`))
