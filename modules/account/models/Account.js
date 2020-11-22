@@ -14,7 +14,12 @@ const AccountSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    accountType: {
+        type: String,
+        required: true
+    },
     accountInfo: {
+        required: false,
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AccountInfo'
     }
