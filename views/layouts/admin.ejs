@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="/public/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="/public/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -36,9 +38,20 @@
                 <div id="content">
 
                     <%- include('./../includes/admin/navbar')  -%>
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
 
-                        <%- body %>
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">
+                                    <%- header %>
+                                </h1>
+                            </div>
 
+                            <%- body %>
+
+                        </div>
+                        <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
 
@@ -92,6 +105,13 @@
     <!-- Page level custom scripts -->
     <script src="/public/admin/js/demo/chart-area-demo.js"></script>
     <script src="/public/admin/js/demo/chart-pie-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/public/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/public/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/public/admin/js/demo/datatables-demo.js"></script>
 
 </body>
 
