@@ -85,7 +85,7 @@ app.get('/services', (req, res) => {
     })
 });
 
-// --- Directing Login Page --- //
+// --- Directing Login and Register Page --- //
 app.get('/login', (req, res) => {
     res.render('auth/login', {
         title: 'Login'
