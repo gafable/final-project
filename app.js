@@ -35,7 +35,7 @@ database.connect()
 // --- Directing Home Page --- //
 app.get('/', (req, res) => {
     res.render('pages/index', {
-        title: 'Home page'
+        title: 'HighQua HomePage'
     })
 })
 
@@ -47,30 +47,30 @@ app.get('/', (req, res) => {
     res.render('pages/index')
 })
 
-app.get('/rooms', (req, res) => {
-    res.render('pages/rooms/roomlist', {
-        title: 'Home page'
-    })
-});
+// app.get('/', (req, res) => {
+//     res.render('pages/rooms/roomlist', {
+//         title: 'HighQua || Home page'
+//     })
+// });
 
 // --- Directing Room List Page --- //
 app.get('/rooms', (req, res) => {
     res.render('pages/rooms/roomlist', {
-        title: 'Room Lists'
+        title: 'HighQua Room Lists'
     })
 });
 
 // --- Directing Blog Page --- //
 app.get('/blog', (req, res) => {
     res.render('pages/blog', {
-        title: 'Blog'
+        title: 'HighQua Blog'
     })
 });
 
 // --- Directing Contact Page --- //
 app.get('/contact', (req, res) => {
     res.render('pages/contact', {
-        title: 'Contact'
+        title: 'HighQua Contact'
     })
 });
 app.get('/test', (req, res) => {
@@ -81,7 +81,7 @@ app.get('/test', (req, res) => {
 
 app.get('/services', (req, res) => {
     res.render('pages/services', {
-        title: 'Services'
+        title: 'HighQua Services'
     })
 });
 
