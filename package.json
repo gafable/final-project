@@ -4,7 +4,12 @@
   "description": "A simple final project for web development and architecture information system",
   "main": "app.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+>>>>>>> 0d6d13048ef61c83b8bb0e60a20f5fbe955c8c07
   },
   "repository": {
     "type": "git",
