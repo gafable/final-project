@@ -1,0 +1,30 @@
+<div class="row">
+
+    <% for( let index = 0; index < employees.length; index++ ) { %>
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <div class="card-header bg-primary" style="min-height: 100px;">
+                </div>
+                <div class="text-center" style="margin-bottom: -50px; top: -50px; position: relative;">
+                    <img src="/public/admin/img/undraw_profile.svg" width="100px" height="100px" class="rounded-circle" alt="Profile picture">
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h4>
+                            <%= employees[index].name %>
+                        </h4>
+                        <small class="font-weight-bold">( <%= employees[index].position %>  )</small><br>
+                        <button class="btn btn-success btn-circle mt-3">
+                            <i class="fa fa-phone"></i>
+                        </button>
+                        <button class="btn btn-info btn-circle mt-3">
+                            <i class="fa fa-info"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+</div>

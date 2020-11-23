@@ -42,6 +42,8 @@ app.get('/', (req, res) => {
 const authRoutes = require('./modules/auth/routes/AuthRoutes')
 const adminPagesRoutes = require('./routes/AdminPagesRoutes')
 const accountRoutes = require('./modules/account/routes/AccountRoutes')
+const roomRoutes = require('./routes/RoomsRoute')
+const reportRoutes = require('./routes/ReportsRoute')
 
 app.get('/', (req, res) => {
     res.render('pages/index')
@@ -97,5 +99,7 @@ app.get('/login', (req, res) => {
 app.use('/auth', authRoutes)
 app.use('/admin', adminPagesRoutes)
 app.use('/accounts', accountRoutes)
+app.use('/reports', reportRoutes)
+app.use('/rooms', roomRoutes)
 
 app.listen(port, console.log(`Application is running at port ${port}`))
