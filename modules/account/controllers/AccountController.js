@@ -13,7 +13,7 @@ async function store(request, response) {
             username: request.body.username,
             email: request.body.email,
             password: request.body.password,
-            accountType: 'admin'
+            accountType: 'client'
         }
         await new Account(account).save((err, result) => {
             if (err) {
