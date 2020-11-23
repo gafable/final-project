@@ -3,6 +3,8 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const env = require('dotenv')
+env.config()
 
 // ---- Assign instance of express to variable app ---- //
 
