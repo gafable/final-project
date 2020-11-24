@@ -18,4 +18,7 @@ router.get('/contact', clientPagesController.contact)
 // -- Directing Services Page ---//
 router.get('/services', clientPagesController.services)
 
+// -- Directing Suite Page -- //
+router.get('/suite', clientPagesController.suite)
+
 module.exports = router
