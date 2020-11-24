@@ -8,8 +8,8 @@ const RoomSchema = new mongoose.Schema({
     classType: { type: String, required },
     price: { type: Number, required },
     status: { type: String, required },
-    description: { type: String, required },
     features: { type: [String], required },
+    description: { type: String, required }
 
 })
 
