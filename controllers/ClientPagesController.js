@@ -33,11 +33,18 @@ async function suite(request, response) {
     })
 }
 
+async function reservation(request, response) {
+    response.render('pages/reservation', {
+        title: 'HighQua Reservation'
+    })
+}
+
 module.exports = {
     index,
     rooms,
     blogs,
     contact,
     services,
-    suite
+    suite,
+    reservation
 }

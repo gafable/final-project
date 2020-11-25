@@ -34,6 +34,8 @@ async function pendings(request, response) {
     })
 }
 
+
+
 module.exports = {
     all,
     available,
