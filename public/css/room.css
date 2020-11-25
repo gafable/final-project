@@ -68,3 +68,11 @@
 body {
     background: #eeece5;
 }
+
+.w-50 {
+    width: 48%;
+}
+
+.mr-3 {
+    margin-right: 16px;
+}

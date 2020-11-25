@@ -27,10 +27,17 @@ async function services(request, response) {
     })
 }
 
+async function suite(request, response) {
+    response.render('pages/suite', {
+        title: 'HighQua Suite'
+    })
+}
+
 module.exports = {
     index,
     rooms,
     blogs,
     contact,
-    services
+    services,
+    suite
 }
