@@ -1,25 +1,18 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = (request, response, next) => {
+    let accessToken = request.cookies.jwt
+
+    //if there is no token stored in cookies, the request is unauthorized
+    if (!accessToken) {
+        return response.redirect('/auth/login')
+    }
+
     try {
-        const authorizationHeader = request.headers.authorization
-        const token = authorizationHeader && authorizationHeader.split(' ')[1]
-        if (token === null) {
-            response.redirec('/auth/login')
-        }
-        jwt.verify(token, process.env.ACCESS_TOKEN, (error, result) => {
-            if (error) {
-                response.status(403).json({
-                    message: "You unauthorize access."
-                })
-            }
-            request.user = result;
-            console.log(result);
-
-            next()
-        })
-
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+        next()
     } catch (error) {
         console.log(error);
+        return response.redirect('/auth/login')
     }
 }
