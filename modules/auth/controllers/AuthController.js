@@ -1,4 +1,5 @@
 const Account = require('./../../account/models/Account')
+const jwt = require('jsonwebtoken')
 
 function login(request, response) {
     response.render('auth/login', {
@@ -25,6 +26,8 @@ async function authenticate(request, response) {
             if (!result.length) {
                 return response.redirect('/auth/login')
             }
+            // const accessToken = jwt.sign(result[0].toString(), process.env.ACCESS_TOKEN)
+            // response.set('Authorization', 'Bearer ' + accessToken)
             if (result[0].accountType == "admin") {
                 return response.redirect('/admin/dashboard')
             }
