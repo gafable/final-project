@@ -3,11 +3,16 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const env = require('dotenv')
+
 
 // ---- Assign instance of express to variable app ---- //
 
 const app = express()
 const port = 3000
+
+
+env.config()
 
 // ---- App data  translation ---- //
 
@@ -29,22 +34,19 @@ app.use('/public', express.static('public'))
 const database = require('./services/dbConnection')
 database.connect()
 
+const VerifyJwtToken = require('./middleware/VerifyToken')
+
 // ---- Define all application routes ---- //
 
-const authRoutes = require('./modules/auth/routes/AuthRoutes')
-const adminPagesRoutes = require('./routes/AdminPagesRoutes')
-const accountRoutes = require('./modules/account/routes/AccountRoutes')
-const roomRoutes = require('./routes/RoomsRoute')
-const reportRoutes = require('./routes/ReportsRoute')
 
 
 
 app.use('/', require('./routes/ClientPagesRoutes'))
-app.use('/auth', authRoutes)
-app.use('/admin', adminPagesRoutes)
-app.use('/accounts', accountRoutes)
-app.use('/reports', reportRoutes)
-app.use('/rooms', roomRoutes)
+app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
+app.use('/admin', require('./routes/AdminPagesRoutes'))
+app.use('/accounts', require('./modules/account/routes/AccountRoutes'))
+app.use('/reports', require('./routes/ReportsRoute'))
+app.use('/rooms', require('./routes/RoomsRoute'))
 
 
 app.listen(port, console.log(`Application is running at port ${port}`))
