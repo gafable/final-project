@@ -2,7 +2,8 @@ const layout = 'layouts/admin'
 
 async function dashboard(request, response) {
     response.render('admin/dashboard', {
-        layout: layout
+        layout: layout,
+        header: 'Dashboard'
     })
 }
 

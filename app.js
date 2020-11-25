@@ -3,11 +3,18 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const env = require('dotenv')
+const cookieParser = require('cookie-parser')
 
 // ---- Assign instance of express to variable app ---- //
 
 const app = express()
 const port = 3000
+
+
+env.config()
+
+app.use(cookieParser())
 
 // ---- App data  translation ---- //
 
@@ -29,73 +36,19 @@ app.use('/public', express.static('public'))
 const database = require('./services/dbConnection')
 database.connect()
 
+const VerifyJwtToken = require('./middleware/VerifyToken')
+
 // ---- Define all application routes ---- //
 
 
-// --- Directing Home Page --- //
-app.get('/',(req,res)=>{
-    res.render('pages/index',{
-        title : 'Home page'
-    })
-})
-
-const authRoutes = require('./modules/auth/routes/AuthRoutes')
-const adminPagesRoutes = require('./routes/AdminPagesRoutes')
-const accountRoutes = require('./modules/account/routes/AccountRoutes')
-
-app.get('/', (req, res) => {
-    res.render('pages/index')
-})
-
-app.get('/rooms', (req, res) => {
-    res.render('pages/rooms/roomlist', {
-        title: 'Home page'
-    })
-});
-
-// --- Directing Room List Page --- //
-app.get('/rooms',(req,res)=>{
-    res.render('pages/rooms/roomlist',{
-        title : 'Room Lists'
-    })
-});
-
-// --- Directing Blog Page --- //
-app.get('/blog',(req,res)=>{
-    res.render('pages/blog',{
-        title : 'Blog'
-    })
-});
-
-// --- Directing Contact Page --- //
-app.get('/contact',(req,res)=>{
-    res.render('pages/contact',{
-        title : 'Contact'
-    })
-});
-app.get('/test', (req, res) => {
-    res.render('pages/test', {
-        layout: ''
-    })
-});
-
-app.get('/services', (req, res) => {
-    res.render('pages/services', {
-        title: 'Services'
-    })
-});
-
-// --- Directing Login Page --- //
-app.get('/login', (req, res) => {
-    res.render ('auth/login',{
-        title: 'Login'
-    })
-});
 
 
+app.use('/', require('./routes/ClientPagesRoutes'))
+app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
+app.use('/admin', VerifyJwtToken, require('./routes/AdminPagesRoutes'))
+app.use('/accounts', require('./modules/account/routes/AccountRoutes'))
+app.use('/reports', VerifyJwtToken, require('./routes/ReportsRoute'))
+app.use('/rooms', VerifyJwtToken, require('./routes/RoomsRoute'))
 
-app.use('/auth', authRoutes)
-app.use('/admin', adminPagesRoutes)
-app.use('/accounts', accountRoutes)
 
 app.listen(port, console.log(`Application is running at port ${port}`))
