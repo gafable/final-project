@@ -24,6 +24,26 @@ async function rooms(request, response) {
     }
 }
 
+
+async function suite(request, response) {
+    try {
+        await Room.aggregate([{ $match: { type: "suite" } }, { $group: { _id: "$classType", rooms: { $push: "$$ROOT" } } }], (error, result) => {
+            if (error) {
+                return response.status(500).json({
+                    error: error
+                })
+            }
+            console.log(result[0].rooms[0].type);
+            response.render('pages/suite', {
+                title: 'HighQua Room Lists',
+                rooms: result
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function blogs(request, response) {
     response.render('pages/blog', {
         title: 'HighQua Blog'
@@ -41,11 +61,11 @@ async function services(request, response) {
     })
 }
 
-async function suite(request, response) {
-    response.render('pages/suite', {
-        title: 'HighQua Suite'
-    })
-}
+// async function suite(request, response) {
+//     response.render('pages/suite', {
+//         title: 'HighQua Suite'
+//     })
+// }
 
 async function reservation(request, response) {
     response.render('pages/reservation', {
