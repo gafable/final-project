@@ -24,6 +24,10 @@ const AccountInfoSchema = new mongoose.Schema({
     address: {
         type: String,
         required: false
+    },
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Account"
     }
 })
 

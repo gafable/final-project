@@ -8,6 +8,7 @@ router.get('/pendings', roomsController.pendings)
 router.get('/available', roomsController.available)
 router.get('/reserved', roomsController.reserved)
 router.get('/history', roomsController.history)
+router.get('/edit/:id', roomsController.edit)
 router.post('/create', upload.single('roomImage'), roomsController.create)
 
 module.exports = router

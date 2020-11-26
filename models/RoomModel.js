@@ -11,7 +11,10 @@ const RoomSchema = new mongoose.Schema({
     status: { type: String, required: true },
     description: { type: String, required: true },
     features: { type: [String], required: true },
-
+    reserves: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ReserveRoom"
+    }]
 })
 
 

@@ -52,8 +52,9 @@
                             <td>
                                 <%= rooms[i].status %>
                             </td>
+
                             <td>
-                                <button class="btn btn-sm btn-success">update</button>
+                                <a href="/rooms/edit/<%= rooms[i]._id %> " class="btn btn-sm btn-success update-room">update</a>
                             </td>
                         </tr>
                         <% } %>
@@ -102,7 +103,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="classType">Class Type</label>
-                            <select id="classType" name="classType" class="form-control" required>
+                            <select id="classType" name="classType" class="form-control remove" required>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

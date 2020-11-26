@@ -71,7 +71,24 @@ async function create(request, response) {
     } catch (error) {
         console.log(error);
     }
+}
 
+async function edit(request, response) {
+    await Room.findOne({ _id: request.params.id }, (error, room) => {
+        if (error) {
+            return response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                errors: error
+            })
+        }
+        console.log(room);
+        response.render('admin/rooms/update', {
+            layout: layout,
+            header: 'Update Room',
+            room: room
+        })
+    })
 
 }
 
@@ -81,5 +98,6 @@ module.exports = {
     reserved,
     history,
     pendings,
-    create
+    create,
+    edit
 }
