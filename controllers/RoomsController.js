@@ -51,9 +51,10 @@ async function pendings(request, response) {
 
 async function create(request, response) {
     try {
+        console.log(request.file);
         const room = {
             no: request.body.no,
-            imageUrl: request.file.path.replace(/\/\//g, "/"),
+            imageUrl: request.file.destination + '/' + request.file.filename,
             floorNo: request.body.floorNo,
             type: request.body.type,
             classType: request.body.classType,
@@ -72,6 +73,19 @@ async function create(request, response) {
     } catch (error) {
         console.log(error);
     }
+}
+
+async function show(request, response) {
+    await Room.findOne({ _id: request.params.id }, (error, room) => {
+        if (error) {
+            return response.status(404).json({
+                error: error
+            })
+        }
+        response.status(200).json({
+            room: room
+        })
+    })
 }
 
 async function edit(request, response) {
@@ -114,5 +128,6 @@ module.exports = {
     pendings,
     create,
     edit,
-    update
+    update,
+    show
 }

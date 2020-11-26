@@ -62,8 +62,8 @@ $(document).ready(function() {
             rooms.forEach((room) => {
                 (classTypeValue && room == classTypeValue) ? classType += `<option value="${room}" selected>${room}</option>`: classType += `<option value="${room}">${room}</option>`
             })
-            $('.bootstrap-select select.classType').empty().selectpicker('refresh')
-            $('.bootstrap-select select.classType').append(classType).selectpicker('refresh')
+            $('.bootstrap-select select#classType').empty().selectpicker('refresh')
+            $('.bootstrap-select select#classType').append(classType).selectpicker('refresh')
 
 
         } else {
@@ -71,8 +71,8 @@ $(document).ready(function() {
             suites.forEach((suite) => {
                 (classTypeValue && suite == classTypeValue) ? classType += `<option value="${suite}" selected>${suite}</option>`: classType += `<option value="${suite}">${suite}</option>`
             })
-            $('.bootstrap-select select.classType').empty().selectpicker('refresh')
-            $('.bootstrap-select select.classType').append(classType).selectpicker('refresh')
+            $('.bootstrap-select select#classType').empty().selectpicker('refresh')
+            $('.bootstrap-select select#classType').append(classType).selectpicker('refresh')
 
         }
     }

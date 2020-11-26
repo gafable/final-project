@@ -205,7 +205,9 @@
                                             <% rooms[i].rooms.forEach((room) =>{ %>
                                                 <div class="col-md-4">
                                                     <div class="hotel-content">
-                                                        <div id="singleroom1" class="hotel-grid" style="background-image:url(/public/images/singleRoom1.jpg);">
+                                                        <input type="hidden" class="room-id" value="<%= room._id %> ">
+                                                        <div id="singleroom1" class="hotel-grid">
+                                                            <img src="<%= room.imageUrl %> " width="100%" alt="">
                                                             <div class="price"><small>For as low as</small><span>$100/night</span></div>
                                                         </div>
                                                         <div class="desc">
@@ -224,21 +226,13 @@
                         <% }; %>
                 </div>
     </div>
-
-
-
-    <!-- Modal for each rooms -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalQuickView">Launch
-    modal</button> -->
-    <!-- Modal: modalQuickView -->
-    <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-5">
-                        </div>
-                    </div>
-                </div>
+</div>
+<div class="modal fade" id="akoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h1 class="title"></h1>
             </div>
         </div>
+    </div>
+</div>
