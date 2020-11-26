@@ -29,8 +29,7 @@
                                 <p><span> Astonishing Lounges </span></p>
                                 <h2>Make Your Vacation Comfortable</h2>
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-lg">Book
-                                        Now</a>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
                             </div>
                         </div>
@@ -66,8 +65,7 @@
                                 <h2> Beautiful Enough Above the Ocean Surface
                                 </h2>
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-lg">Book
-                                        Now</a>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
                             </div>
                         </div>
@@ -84,8 +82,7 @@
                                 <p><span> Oceanarium Hotel Lobby </span></p>
                                 <h2> Time to Hang Out in for Hours </h2>
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-lg">Book
-                                        Now</a>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
                             </div>
                         </div>
@@ -113,6 +110,8 @@
         </ul>
     </div>
 </aside>
+
+
 <div class="wrap">
     <div class="container">
         <div class="row">
@@ -167,9 +166,10 @@
         </div>
     </div>
 </div>
+
+
 <!-- Nav tabs -->
 <div class="card">
-
     <ul class="nav nav-tabs" role="tablist">
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
@@ -182,8 +182,6 @@
                                 </a>
                         </li>
                         <% }; %>
-
-
     </ul>
 
     <div class="tab-content">
@@ -213,7 +211,6 @@
                                                         <div class="desc">
                                                             <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
                                                             <%- room.description %>
-
                                                                 <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
                                                                 <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</button>
                                                         </div>
@@ -225,24 +222,7 @@
                                 </div>
                         </div>
                         <% }; %>
-
                 </div>
     </div>
 
-
-
     <!-- Modal for each rooms -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalQuickView">Launch
-    modal</button> -->
-    <!-- Modal: modalQuickView -->
-    <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-5">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>

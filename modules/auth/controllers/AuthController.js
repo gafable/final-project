@@ -23,7 +23,7 @@ async function authenticate(request, response) {
             password: request.body.password
         }, (err, result) => {
             if (err || !result.length) {
-                return response.redirect('/auth/login', 401)
+                return response.redirect('/auth/login')
             }
             const user = {
                 _id: result[0]._id,
