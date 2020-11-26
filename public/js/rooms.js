@@ -1,3 +1,3 @@
-    $('.hotel-grid').click(function() {
+    $('.modalView').click(function() {
         $('#modalQuickView').modal('show');
     })

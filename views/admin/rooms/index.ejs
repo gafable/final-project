@@ -2,9 +2,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between">
         <h4 class="m-0 font-weight-bold text-primary">List</h4>
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
-            Add Room <i class="fa fa-plus"></i>
-          </button>
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"> Add Room <i class="fa fa-plus"></i> </button>
     </div>
     <div class="card-body ">
         <div class="table-responsive">
@@ -103,10 +101,19 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="classType">Class Type</label>
-                            <select id="classType" name="classType" class="form-control remove" required>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                            <select id="classType" name="classType" class="form-control" required data-live-search="true" title="Choose type">
+                                <option value="Single">Single</option>
+                                <option value="Double">Double</option>
+                                <option value="Triple">Triple</option>
+                                <option value="Quad">Quad</option>
+                                <option value="Queen">Queen</option>
+                                <option value="Twin">Twin</option>
+                                <option value="King">King</option>
+                                <option value="Double-double">Double-double</option>
+                                <option value="Studio">Studio</option>
+                                <option value="Connecting">Connecting</option>
+                                <option value="Murphy">Murphy</option>
+                                <option value="Cabana">Cabana</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4 ">
@@ -130,15 +137,23 @@
                     </div>
                     <div class="form-group">
                         <label for="features">Features</label>
-                        <select id="features" name="features[]" class="form-control" multiple title="Choose features for this room ..." data-live-search="true" required>
+                        <select id="features" name="features[]" class="form-control" multiple title="Choose features for this room ..." data-size="5" data-actions-box="true" data-live-search="true" data-selected-text-format="count > 3" required>
                             <option data-icon="fa fa-desktop" value="tv"> Free Flatscreen TV</option>
-                            <option value="wifi">Wifi</option>
-                            <option value="Free Breakfast">Free Break Fast</option>
-                            <option value="shower with bathtub">shower with bathtub</option>
-                            <option value="flatscreen tv">flatscreen tv</option>
-                            <option value="Slippers">Slippers</option>
-                            <option value="Coffee & tea facilities">Coffee & tea facilities</option>
-                            <option value=""></option>
+                            <option data-icon="fa fa-wifi"    value="wifi"> Free High Speed Internet Wi-FI Access Free</option>
+                            <option data-icon="fas fa-hamburger" value="Free Breakfast">Free Break Fast</option>
+                            <option data-icon="fas fa-shower" value="shower with bathtub"> Shower with bathtub</option>
+                            <option data-icon="fas fa-lock" value="Electronic Locks">Electronic Locks </option>
+                            <option data-icon="fas fa-shoe-prints" value="Slippers">Slippers</option>
+                            <option data-icon="fas fa-coffee"value="Coffee & tea facilities">Coffee & tea facilities</option>
+                            <option data-icon="fas fa-temperature-high">Air Conditioner Central with individual Thermostat Controller</option>
+                            <option data-icon="fas fa-wine-glass" value="Mini-Bar">Mini-Bar </option>
+                            <option data-icon="fas fa-paint-roller" value="Modern Furnidhing">Modern Furnishing</option>
+                            <option data-icon="fas fa-window-close">Soundproof Windows</option>
+                            <option data-icon="	fas fa-bread-slice" value="Refrigerator"> Refrigerator</option>
+                            <option data-icon="fas fa-dumbbell"value="Workout Room">Workout Room</option>
+                            <option data-icon="fas fa-wine-glass-alt"value="Bottle of Wine">Bottle of Wine</option>
+                            <option data-icon="fas fa-temperature-low"value="Heating"> Central Heating-Low Season</option>
+                            <option data-icon="fas fa-compact-disc"value="CD/DVD Player"> CD/DVD Player</option>
                         </select>
                     </div>
             </div>

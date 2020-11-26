@@ -1,5 +1,6 @@
 const layout = 'layouts/admin'
 const Room = require('./../models/RoomModel')
+const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
@@ -89,7 +90,20 @@ async function edit(request, response) {
             room: room
         })
     })
-
+}
+async function update(request, response) {
+    const roomToUpdate = parseRequestBody(request.body)
+    await Room.updateOne({ _id: request.params.id }, roomToUpdate, (error, result) => {
+        if (error) {
+            response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                room: new Room(),
+                error: error
+            })
+        }
+        response.redirect('/rooms/all')
+    })
 }
 
 module.exports = {
@@ -99,5 +113,6 @@ module.exports = {
     history,
     pendings,
     create,
-    edit
+    edit,
+    update
 }
