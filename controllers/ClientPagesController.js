@@ -1,3 +1,4 @@
+const Room = require('./../models/RoomModel')
 async function index(request, response) {
     response.render('pages/index', {
         title: 'HighQua HomePage'
@@ -5,9 +6,22 @@ async function index(request, response) {
 }
 
 async function rooms(request, response) {
-    response.render('pages/rooms/roomlist', {
-        title: 'HighQua Room Lists'
-    })
+    try {
+        await Room.aggregate([{ $match: { type: "room" } }, { $group: { _id: "$classType", rooms: { $push: "$$ROOT" } } }], (error, result) => {
+            if (error) {
+                return response.status(500).json({
+                    error: error
+                })
+            }
+            console.log(result[0].rooms[0].type);
+            response.render('pages/rooms/roomlist', {
+                title: 'HighQua Room Lists',
+                rooms: result
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function blogs(request, response) {
