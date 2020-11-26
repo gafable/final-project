@@ -24,6 +24,25 @@ async function rooms(request, response) {
     }
 }
 
+async function availableRooms(request, response) {
+    try {
+        await Room.aggregate([{ $match: { $and: [{ type: "room" }, { status: "available" }] } }, { $group: { _id: "$classType", rooms: { $push: "$$ROOT" } } }], (error, result) => {
+            if (error) {
+                return response.status(500).json({
+                    error: error
+                })
+            }
+            console.log(result[0].rooms[0].type);
+            response.render('pages/rooms/roomlist', {
+                title: 'HighQua Room Lists',
+                rooms: result
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function blogs(request, response) {
     response.render('pages/blog', {
         title: 'HighQua Blog'
@@ -60,5 +79,6 @@ module.exports = {
     contact,
     services,
     suite,
-    reservation
+    reservation,
+    availableRooms
 }
