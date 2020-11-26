@@ -21,4 +21,6 @@ router.get('/services', clientPagesController.services)
 // -- Directing Suite Page -- //
 router.get('/suite', clientPagesController.suite)
 
+router.get('/reservation', clientPagesController.reservation)
+
 module.exports = router
