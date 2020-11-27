@@ -22,7 +22,11 @@ const AccountSchema = new mongoose.Schema({
         required: false,
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AccountInfo'
-    }
+    },
+    reserves: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ReserveRoom"
+    }]
 })
 
 module.exports = mongoose.model('Account', AccountSchema)

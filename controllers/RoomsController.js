@@ -1,5 +1,6 @@
 const layout = 'layouts/admin'
 const Room = require('./../models/RoomModel')
+const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
@@ -50,9 +51,10 @@ async function pendings(request, response) {
 
 async function create(request, response) {
     try {
+        console.log(request.file);
         const room = {
             no: request.body.no,
-            imageUrl: request.file.path.replace(/\/\//g, "/"),
+            imageUrl: request.file.destination + '/' + request.file.filename,
             floorNo: request.body.floorNo,
             type: request.body.type,
             classType: request.body.classType,
@@ -71,8 +73,51 @@ async function create(request, response) {
     } catch (error) {
         console.log(error);
     }
+}
 
+async function show(request, response) {
+    await Room.findOne({ _id: request.params.id }, (error, room) => {
+        if (error) {
+            return response.status(404).json({
+                error: error
+            })
+        }
+        response.status(200).json({
+            room: room
+        })
+    })
+}
 
+async function edit(request, response) {
+    await Room.findOne({ _id: request.params.id }, (error, room) => {
+        if (error) {
+            return response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                errors: error
+            })
+        }
+        console.log(room);
+        response.render('admin/rooms/update', {
+            layout: layout,
+            header: 'Update Room',
+            room: room
+        })
+    })
+}
+async function update(request, response) {
+    const roomToUpdate = parseRequestBody(request.body)
+    await Room.updateOne({ _id: request.params.id }, roomToUpdate, (error, result) => {
+        if (error) {
+            response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                room: new Room(),
+                error: error
+            })
+        }
+        response.redirect('/rooms/all')
+    })
 }
 
 module.exports = {
@@ -81,5 +126,8 @@ module.exports = {
     reserved,
     history,
     pendings,
-    create
+    create,
+    edit,
+    update,
+    show
 }
