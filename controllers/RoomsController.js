@@ -49,6 +49,12 @@ async function pendings(request, response) {
     })
 }
 
+async function checkAvailability(request, response) {
+    console.log(request.query.checkIn);
+    console.log(request.query.checkOut);
+    response.redirect('/rooms')
+}
+
 async function create(request, response) {
     try {
         console.log(request.file);
@@ -129,5 +135,6 @@ module.exports = {
     create,
     edit,
     update,
-    show
+    show,
+    checkAvailability
 }

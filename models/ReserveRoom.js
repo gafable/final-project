@@ -14,9 +14,9 @@ const ReserveRoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Account"
     },
-    reserves: [{
+    room: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ReserveRoom"
+        ref: "Room"
     }]
 
 })

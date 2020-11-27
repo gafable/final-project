@@ -204,11 +204,11 @@
     <ul class="nav nav-tabs text-center" role="tablist" class="nav navbar-collapse">
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <li role="presentation" style="width: 12%;" class="active">
+                <li role="presentation" class="active">
                     <% }else{ %>
                         <li role="presentation">
                             <%}%>
-                                <a href="#<%= rooms[i]._id %>" aria-controls="<%= rooms[i]._id %>" role="tab" data-toggle="tab">
+                                <a href="#<%= rooms[i]._id.replace(' ','') %>" aria-controls="<%= rooms[i]._id %>" role="tab" data-toggle="tab">
                                     <%=  rooms[i]._id %>
                                 </a>
                         </li>
@@ -219,9 +219,9 @@
       Accessing Suite  
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <div role="tabpanel" class="tab-pane active" id="<%=  rooms[i]._id %>">
+                <div role="tabpanel" class="tab-pane active" id="<%=  rooms[i]._id.replace(' ','') %>">
                     <% }else{ %>
-                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id %>">
+                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id.replace(' ','') %>">
                             <%}%>
                                 <legend>
                                     <%= rooms[i]._id %>
@@ -259,9 +259,9 @@
         <!-- Accessing Suite -->
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <div role="tabpanel" class="tab-pane active" id="<%= rooms[i]._id%>">
+                <div role="tabpanel" class="tab-pane active" id="<%= rooms[i]._id.replace(' ', '')%>">
                     <% }else{ %>
-                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id%>">
+                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id.replace(' ', '') %>">
                             <%}%>
                                 <legend>
                                     <%= rooms[i]._id %>

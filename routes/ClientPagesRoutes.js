@@ -23,4 +23,6 @@ router.get('/suite', clientPagesController.suite)
 
 router.get('/reservation', clientPagesController.reservation)
 
+router.get('/accounts/profile', clientPagesController.profile)
+
 module.exports = router
