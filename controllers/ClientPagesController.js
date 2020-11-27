@@ -15,7 +15,7 @@ async function rooms(request, response) {
             }
             console.log(result[0].rooms[0].type);
             response.render('pages/rooms/roomlist', {
-                title: 'HighQua Room Lists',
+                title: 'HighQua Suite',
                 rooms: result
             })
         })
@@ -35,7 +35,7 @@ async function suite(request, response) {
             }
             console.log(result[0].rooms[0].type);
             response.render('pages/suite', {
-                title: 'HighQua Room Lists',
+                title: 'HighQua Suite',
                 rooms: result
             })
         })
@@ -61,11 +61,6 @@ async function services(request, response) {
     })
 }
 
-// async function suite(request, response) {
-//     response.render('pages/suite', {
-//         title: 'HighQua Suite'
-//     })
-// }
 
 async function reservation(request, response) {
     response.render('pages/reservation', {

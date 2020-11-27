@@ -77,8 +77,8 @@
                         slider-text">
                         <div class="slider-text-inner js-fullheight">
                             <div class="desc">
-                                <p><span> P </span></p>
-                                <h2> Time to Hang Out in for Hours </h2>
+                                <p><span> Penthouse </span></p>
+                                <h2> Offers Distinct and Gorgeous View </h2>
                                 <p>
                                     <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
@@ -87,18 +87,32 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url(/public/images/slider3.jpg);">
+            <li style="background-image: url(/public/images/terraceSuite2.jpg);">
                 <div class="overlay-gradient"></div>
                 <div class="container">
-                    <div class="col-md-12 col-md-offset-0 text-center
-                        slider-text">
+                    <div class="col-md-12 col-md-offset-0 text-center slider-text">
                         <div class="slider-text-inner js-fullheight">
                             <div class="desc">
-                                <p><span> HighQua Hotel Entire View </span></p>
-                                <h2>A Best Place To Enjoy Your Life</h2>
+                                <p><span> Terrace </span></p>
+                                <h2> Live at your Comfort Area </h2>
                                 <p>
-                                    <a href="#" class="btn btn-primary btn-lg">Book
-                                        Now</a>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(/public/images/terraceSuite2.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container">
+                    <div class="col-md-12 col-md-offset-0 text-center slider-text">
+                        <div class="slider-text-inner js-fullheight">
+                            <div class="desc">
+                                <p><span> Terrace </span></p>
+                                <h2> Live at your Comfort Area </h2>
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
                             </div>
                         </div>
@@ -115,37 +129,24 @@
     <div class="container">
         <div class="row">
             <div id="availability">
-                <form action="#">
-                    <div class="a-col">
-                        <section>
-                            <select class="cs-select cs-skin-border">
-                                <option value="" disabled selected>Select Suite</option>
-                                <option value="Royal"> Royal </option>
-                                <option value="Overwater Bungalow"> Overwater Bungalow </option>
-                                <option value="Presidential">Presidential</option>
-                                <option value="Villa"> Villa  </option>
-                                <option value="Penthouse"> Penthouse  </option>
-                                <option value="Terrace"> Terrace </option>
-                                <option value="Junior"> Junior </option>
-                                <option value="Deluxe"> Deluxe  </option>
-                                <option value="Executive"> Executive </option>
-                            </select>
-                        </section>
-                    </div>
-                    <div class="a-col alternate">
+                <form action="/rooms/" method="GET" id="availabilityForm">
+
+                    <div class="a-col alternate col-md-5">
                         <div class="input-field">
                             <label for="date-start">Check In</label>
-                            <input type="text" class="form-control" id="date-start" />
+                            <input type="text" class="form-control" id="date-start" name="date-start" />
                         </div>
                     </div>
-                    <div class="a-col alternate">
+
+                    <div class="a-col alternate col-md-5">
                         <div class="input-field">
                             <label for="date-end">Check Out</label>
-                            <input type="text" class="form-control" id="date-end" />
+                            <input type="text" class="form-control" id="date-end" name="date-end" />
                         </div>
                     </div>
-                    <div class="a-col action">
-                        <a href="#">
+
+                    <div class="a-col action col-md-2">
+                        <a href="#" onclick="document.getElementById('availabilityForm').submit()">
                             <span>Check</span> Availability
                         </a>
                     </div>
@@ -190,407 +191,68 @@
 </div>
 
 <div class="card">
-    <!-- <ul class="nav nav-tabs text-center" role="tablist" class="nav navbar-collapse">
-        <li role="presentation" style="width: 12%;"><a href="#royalSuite" aria-controls="HighQua Junior Suite" role="tab" data-toggle="tab"> Royal </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#bungaloSuite" aria-controls="HighQua Deluxe Suite" role="tab" data-toggle="tab"> Overwater Bungalow   </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#presidentialSuite" aria-controls="HighQua Executive Suite" role="tab" data-toggle="tab"> Presidential  </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#villaSuite" aria-controls="HighQua Terrace Suite" role="tab" data-toggle="tab"> Villa </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#penthouseSuite" aria-controls="Penthouse Suite" role="tab" data-toggle="tab"> Penthouse  </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#terraceSuite" aria-controls="HighQua OverflowBungalow Suite" role="tab" data-toggle="tab"> Terrace  </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#juniorSuite" aria-controls="HighQua Presidential Suite" role="tab" data-toggle="tab"> Junior </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#deluxeSuite" aria-controls="HighQua Royal Suite" role="tab" data-toggle="tab"> Deluxe </a></li>
-        <li role="presentation" style="width: 12%;"><a href="#executiveSuite" aria-controls="HighQua Royal Suite" role="tab" data-toggle="tab"> Executive </a></li> 
-    </ul> -->
     <ul class="nav nav-tabs text-center" role="tablist" class="nav navbar-collapse">
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <li role="presentation" style="width: 12%;" class="active">
+                <li role="presentation" class="active">
                     <% }else{ %>
                         <li role="presentation">
                             <%}%>
-                                <a href="#<%= rooms[i]._id %>" aria-controls="<%= rooms[i]._id %>" role="tab" data-toggle="tab">
+                                <a href="#<%= rooms[i]._id.replace(' ','') %>" aria-controls="<%= rooms[i]._id %>" role="tab" data-toggle="tab">
                                     <%=  rooms[i]._id %>
                                 </a>
                         </li>
                         <% }; %>
     </ul>
 
-    <!-- <div class="tab-content">
-      Accessing Suite  
-        <% for(let i = 0 ; i < rooms.length; i++){ %>
-            <% if(i == 0){%>
-                <div role="tabpanel" class="tab-pane active" id="<%=  rooms[i]._id %>">
-                    <% }else{ %>
-                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id %>">
-                            <%}%>
-                                <legend>
-                                    <%= rooms[i]._id %>
-                                </legend>
-                                <div>
-                                    This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                                </div>
-                                <div id="fh5co-hotel-section">
-                                    <div class="">
-                                        <div class="row">
-                                            <% rooms[i].rooms.forEach((room) =>{ %>
-                                                <div class="col-md-4">
-                                                    <div class="hotel-content">
-                                                        <div id="singleroom1" class="hotel-grid" style="background-image:url(/public/images/singleRoom1.jpg);">
-                                                            <div class="price"><small>For as low as</small><span>$100/night</span></div>
-                                                        </div>
-                                                        <div class="desc">
-                                                            <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
-                                                            <%- room.description %>
-                                                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
-                                                                <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <%})%>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <% }; %>
-                </div>
-    </div> -->
-
     <div class="tab-content">
         <!-- Accessing Suite -->
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <div role="tabpanel" class="tab-pane active" id="<%= rooms[i]._id%>">
-                    <% }else{ %>
-                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id%>">
-                            <%}%>
-                                <legend>
-                                    <%= rooms[i]._id %>
-                                </legend>
-                                <div>
-                                    This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                                </div>
-                                <div class="feature-full-1col">
-                                    <% rooms[i].rooms.forEach((room) =>{ %>
-                                        <div class="image" style="background-image: url(/public/images/royalSuite1.jpg);">
-                                            <div class="descrip text-center">
-                                                <p><small>For as low as</small><span>$100/night</span></p>
+                <% let id = rooms[i]._id.replace(' ','') %>
+
+                    <div role="tabpanel" class="tab-pane active" id="<%= id %>">
+                        <% }else{ %>
+                            <% let id = rooms[i]._id.replace(' ','') %>
+                                <div role="tabpanel" class="tab-pane" id="<%= id %>">
+                                    <%}%>
+                                        <legend>
+                                            <%= rooms[i]._id %>
+                                        </legend>
+                                        <!-- <div>
+                                            This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
+                                        </div> -->
+                                        <% rooms[i].rooms.forEach((room) =>{ %>
+                                            <div class="feature-full-1col">
+                                                <div class="image">
+
+                                                    <img src="<%= room.imageUrl %> " width="100%" alt="">
+
+                                                    <div class="descrip text-center">
+                                                        <p><small>For as low as</small><span>$100/night</span></p>
+                                                    </div>
+
+                                                    <div class="features">
+                                                        <h3> Features </h3>
+                                                        <% for( let i = 0; i < room.features.length; i++ ) { %>
+                                                            <li>
+                                                                <%- room.features[i] %>
+                                                                    <% }%>
+                                                            </li>
+                                                    </div>
+                                                </div>
+                                                <div class="desc">
+                                                    <h2><a href="#"> Located in Room No. <%= room.no %> </h2> 
+                                                       <p>Floor No. <%= room.floorNo %>  </a></p>
+                                                        <%- room.description %>
+                                                            <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                                                </div>
+
                                             </div>
-                                        </div>
-                                        <div class="desc">
-                                            <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
-                                            <%- room.description %>
-                                                <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                        </div>
-                                        <%})%>
+                                            <%})%>
+
+
                                 </div>
-                        </div>
-                        <% }; %>
-                </div>
+                                <% }; %>
+                    </div>
     </div>
-
-    <!-- Overflow Bungalo Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="bungaloSuite">
-                            <legend> Overwater Bungalow Suite </legend>
-                            <div>
-                                The famous overwater bungalows (also known as overwater villas) are perfect for couples, honeymooners and people who love to see the view of the endless sea.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/overwaterBungalo1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Overflow Bungalo Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Presidential Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="presidentialSuite">
-                            <legend> Presidential Suite </legend>
-                            <div>
-                                There is no luxury hotel without Presidential suite in the accommodation list. A suite for presidents, owners of companies, hedge fund managers, A-list celebrities or anyone how can afford it to pay the highest price for a suite.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/presidentialSuite1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Presidential Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Villa Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="villaSuite">
-                            <legend> Villa Suite </legend>
-                            <div>
-                                People who like huge space inside and outside as well as garden; a luxury villa is a perfect choice. Villas are also good for families or group of friends.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/villaSuite1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Villa Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-    <!-- Penthouse Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="penthouseSuite">
-                            <legend> Penthouse Suite </legend>
-                            <div>
-                                Almost every luxury hotel in a city has a special suite on the top floor. Usually, this suite is the penthouse suite; for everyone who wants to enjoy the magnificent view from the spacious suite or from the roof terrace with family, friends, colleagues
-                                or business partners.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/penthouseSuite1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Penthouse Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Terrace Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="terraceSuite">
-                            <legend> Terrace Suite </legend>
-                            <div>
-                                This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/hotel_feture_1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Terrace Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Junior Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="juniorSuite">
-                            <legend> Junior Suite </legend>
-                            <div>
-                                This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/hotel_feture_1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Junior Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Junior Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="deluxeSuite">
-                            <legend> Deluxe Suite </legend>
-                            <div>
-                                This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/hotel_feture_1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Deluxe Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-
-    <!-- Junior Suite  -->
-    <!-- <div role="tabpanel" class="tab-pane " id="executiveSuite">
-                            <legend> Executive Suite </legend>
-                            <div>
-                                This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                            </div>
-                            <div class="feature-full-1col">
-                                <div class="image" style="background-image: url(/public/images/hotel_feture_1.jpg);">
-                                    <div class="descrip text-center">
-                                        <p><small>For as low as</small><span>$100/night</span></p>
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <ul class="list-group">
-                                        <h2 style="color: orange;"> Executive Suite </h2>
-                                        <p> Suite Details</p>
-                                        <ul>
-                                            <li> 431-539 sq ft / 40-50 sq m </li>
-                                            <li> 1 King-sized bed</li>
-                                            <li> 3 Adults and 2 Children (maximum occupancy)</li>
-                                            <li> Rooms located at 30/F </li>
-                                            <li> City View </li>
-                                        </ul>
-
-                                        <p> Suite Anemities </p>
-                                        <ul>
-                                            <li> Free wireless internet connection throughout the property </li>
-                                            <li> Cable TV </li>
-                                            <li> Shower and/or bathtub</li>
-                                            <li> Coffee & Tea facilities </li>
-                                            <li> Complimentary newspapers available </li>
-                                        </ul>
-                                    </ul>
-                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
-                                </div>
-                            </div>
-                        </div> -->
-    <!-- </div> -->
