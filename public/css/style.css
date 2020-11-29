@@ -40,6 +40,11 @@ h3 {
     margin-top: 10%;
 }
 
+.suiteLocation {
+    color: #000;
+    font-weight: 50px;
+}
+
 .modal-header-warning {
     /* padding-top: 10px; */
     padding-bottom: 5px;

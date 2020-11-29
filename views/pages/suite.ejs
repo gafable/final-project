@@ -103,14 +103,30 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url(/public/images/terraceSuite2.jpg);">
+            <li style="background-image: url(/public/images/juniorSuite1.jpg);">
                 <div class="overlay-gradient"></div>
                 <div class="container">
                     <div class="col-md-12 col-md-offset-0 text-center slider-text">
                         <div class="slider-text-inner js-fullheight">
                             <div class="desc">
-                                <p><span> Terrace </span></p>
-                                <h2> Live at your Comfort Area </h2>
+                                <p><span> Junior </span></p>
+                                <h2> Perfect for Travelers to Relax </h2>
+                                <p>
+                                    <a href="#" class="btn btn-primary btn-lg">Book Now</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(/public/images/deluxeSuite1.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container">
+                    <div class="col-md-12 col-md-offset-0 text-center slider-text">
+                        <div class="slider-text-inner js-fullheight">
+                            <div class="desc">
+                                <p><span> Deluxe </span></p>
+                                <h2> Perfect for Travelers to Relax </h2>
                                 <p>
                                     <a href="#" class="btn btn-primary btn-lg">Book Now</a>
                                 </p>
@@ -204,13 +220,11 @@
                         </li>
                         <% }; %>
     </ul>
-
     <div class="tab-content">
         <!-- Accessing Suite -->
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
                 <% let id = rooms[i]._id.replace(' ','') %>
-
                     <div role="tabpanel" class="tab-pane active" id="<%= id %>">
                         <% }else{ %>
                             <% let id = rooms[i]._id.replace(' ','') %>
@@ -219,21 +233,15 @@
                                         <legend>
                                             <%= rooms[i]._id %>
                                         </legend>
-                                        <!-- <div>
-                                            This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                                        </div> -->
                                         <% rooms[i].rooms.forEach((room) =>{ %>
                                             <div class="feature-full-1col">
                                                 <div class="image">
-
                                                     <img src="<%= room.imageUrl %> " width="100%" alt="">
-
                                                     <div class="descrip text-center">
-                                                        <p><small>For as low as</small><span>$100/night</span></p>
+                                                        <p><small>For as low as</small><span> Php <%- room.price %> /night</span></p>
                                                     </div>
-
                                                     <div class="features">
-                                                        <h3> Features </h3>
+                                                        <h1> Features </h1>
                                                         <% for( let i = 0; i < room.features.length; i++ ) { %>
                                                             <li>
                                                                 <%- room.features[i] %>
@@ -242,15 +250,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="desc">
-                                                    <h2><a href="#"> Located in Room No. <%= room.no %> </h2> 
-                                                       <p>Floor No. <%= room.floorNo %>  </a></p>
-                                                        <%- room.description %>
-                                                            <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                                                    <h1> Locations </h1>
+                                                    <a href="#">
+                                                        <p class="text-justify" style="font-size: 20px;"> Located at Floor
+                                                            <%- room.floorNo %>
+                                                                <br> Room
+                                                                <%- room.no %>
+                                                        </p>
+                                                    </a>
+                                                    <br>
+                                                    <%- room.description %>
+                                                        <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
                                                 </div>
-
                                             </div>
                                             <%})%>
-
 
                                 </div>
                                 <% }; %>

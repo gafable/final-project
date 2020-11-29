@@ -10,7 +10,7 @@
                 $modal = $('#akoa')
                 $modal.find('.title').text(data.room.classType)
                 $modal.modal('show')
-                console.log(data.room);
+                console.log(data.room.imageUrl);
             }
 
         });
