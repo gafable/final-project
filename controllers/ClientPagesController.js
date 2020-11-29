@@ -1,6 +1,4 @@
-const Room = require('./../models/RoomModel')
-
-
+const Room = require('./../models/Room')
 
 async function index(request, response) {
     response.render('pages/index', {
@@ -10,16 +8,17 @@ async function index(request, response) {
 
 async function rooms(request, response) {
     try {
-        await Room.aggregate([{ $match: { type: "room" } }, { $group: { _id: "$classType", rooms: { $push: "$$ROOT" } } }], (error, result) => {
-            if (error) {
-                return response.status(500).json({
-                    error: error
-                })
-            }
-            console.log(result[0].rooms[0].type);
-            response.render('pages/rooms/roomlist', {
-                title: 'HighQua Suite',
-                rooms: result
+        await Room.find({}).populate({
+            path: 'classType',
+            match: {
+                type: "room"
+            },
+            model: "ClassType"
+        }).exec((error, rooms) => {
+            if (error) return response.redirect('back')
+            response.render('pages/rooms/index', {
+                title: 'HighQua Room Lists',
+                rooms: rooms
             })
         })
     } catch (error) {
@@ -30,18 +29,19 @@ async function rooms(request, response) {
 
 async function suite(request, response) {
     try {
-        await Room.aggregate([{ $match: { type: "suite" } }, { $group: { _id: "$classType", rooms: { $push: "$$ROOT" } } }], (error, result) => {
-            if (error) {
-                return response.status(500).json({
-                    error: error
+        try {
+            await Room.find({}).populate('classType').exec((error, rooms) => {
+                console.log(rooms)
+                if (error) return response.redirect('back')
+                response.render('pages/suite', {
+                    title: 'HighQua Suite Lists',
+                    rooms: rooms.filter(room => room.classType.type == "suite")
+
                 })
-            }
-            console.log(result[0].rooms[0].type);
-            response.render('pages/suite', {
-                title: 'HighQua Suite',
-                rooms: result
             })
-        })
+        } catch (error) {
+            console.log(error);
+        }
     } catch (error) {
         console.log(error);
     }

@@ -9,7 +9,7 @@ module.exports = (request, response, next) => {
     }
 
     try {
-        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+        request.user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
         next()
     } catch (error) {
         console.log(error.name + ' : ' + error.message);

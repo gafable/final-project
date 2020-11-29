@@ -22,35 +22,27 @@ $('.update-room').click(function(e) {
     e.stopPropagation();
 
 });
-var rooms = [
-    'Single',
-    'Double',
-    'Triple',
-    'Quad',
-    'Twin',
-    'King',
-    'Double-double',
-    'Studio',
-    'Connecting',
-    'Murphy',
-    'Cabana'
-]
-var suites = [
-    'Royal',
-    'Overwater Bungalow',
-    'Presidential',
-    'Villa',
-    'Penthouse',
-    'Terrace',
-    'Junior',
-    'Deluxe',
-    'Executive'
-]
+
 
 $(document).ready(function() {
+    var rooms = []
+    var suites = []
+    $.get("/classtypes/all", function(data, status) {
+        if (status == "success") {
+            console.log(data.classTypes);
+            data.classTypes.forEach((classType) => {
+                console.log(classType);
+                classType.type == "room" ?
+                    rooms.push(classType) :
+                    suites.push(classType)
+            })
+            updateClassTypeItem()
+        } else {
+            alert('Server Error : Please refresh the page.')
+        }
+    });
     $('select').selectpicker()
     $('#type').change(function(e) {
-
         updateClassTypeItem()
     });
 
@@ -60,7 +52,9 @@ $(document).ready(function() {
         if (type == 'room') {
             let classType = ""
             rooms.forEach((room) => {
-                (classTypeValue && room == classTypeValue) ? classType += `<option value="${room}" selected>${room}</option>`: classType += `<option value="${room}">${room}</option>`
+                classTypeValue && room._id == classTypeValue ?
+                    classType += `<option value="${room._id}" selected>${room.name}</option>` :
+                    classType += `<option value="${room._id}">${room.name}</option>`
             })
             $('.bootstrap-select select#classType').empty().selectpicker('refresh')
             $('.bootstrap-select select#classType').append(classType).selectpicker('refresh')
@@ -69,15 +63,15 @@ $(document).ready(function() {
         } else {
             let classType = ""
             suites.forEach((suite) => {
-                (classTypeValue && suite == classTypeValue) ? classType += `<option value="${suite}" selected>${suite}</option>`: classType += `<option value="${suite}">${suite}</option>`
+                classTypeValue && suite._id == classTypeValue ?
+                    classType += `<option value="${suite._id}" selected>${suite.name}</option>` :
+                    classType += `<option value="${suite._id}">${suite.name}</option>`
             })
             $('.bootstrap-select select#classType').empty().selectpicker('refresh')
             $('.bootstrap-select select#classType').append(classType).selectpicker('refresh')
 
         }
     }
-
-    updateClassTypeItem()
     $('.bootstrap-select .classType').selectpicker('val', 'asd');
 
 });

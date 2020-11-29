@@ -36,19 +36,19 @@ app.use('/public', express.static('public'))
 const database = require('./services/dbConnection')
 database.connect()
 
+// ---- Define all application middlewares ---- //
+
 const VerifyJwtToken = require('./middleware/VerifyToken')
+const IsAdmin = require('./middleware/IsAdmin')
 
 // ---- Define all application routes ---- //
 app.use('/', require('./routes/ClientPagesRoutes'))
 app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
-app.use('/admin', VerifyJwtToken, require('./routes/AdminPagesRoutes'))
+app.use('/admin', [VerifyJwtToken, IsAdmin], require('./routes/AdminPagesRoutes'))
 app.use('/accounts', require('./modules/account/routes/AccountRoutes'))
 app.use('/reports', VerifyJwtToken, require('./routes/ReportsRoute'))
-app.use('/rooms', VerifyJwtToken, require('./routes/RoomsRoute'))
-
-let price = Intl.NumberFormat('en-PH', {
-    minimumFractionDigits: 2,
-}).format(12000)
-
+app.use('/rooms', require('./routes/RoomsRoute'))
+app.use('/bookings', require('./routes/BookingsRoute'))
+app.use('/classtypes', require('./routes/ClassTypesRoute'))
 
 app.listen(port, console.log(`Application is running at port ${port}`))

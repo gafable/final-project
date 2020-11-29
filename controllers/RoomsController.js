@@ -1,15 +1,16 @@
 const layout = 'layouts/admin'
-const Room = require('./../models/RoomModel')
+const Room = require('./../models/Room')
 const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
-        await Room.find({}, (error, result) => {
+        await Room.find({}).populate('classType').exec((error, result) => {
             if (error) {
                 return response.status(500).json({
                     error: error
                 })
             }
+            console.log(result);
             response.render('admin/rooms/index', {
                 layout: layout,
                 header: 'Rooms',
@@ -60,14 +61,9 @@ async function create(request, response) {
         console.log(request.file);
         const room = {
             no: request.body.no,
-            imageUrl: request.file.destination + '/' + request.file.filename,
             floorNo: request.body.floorNo,
-            type: request.body.type,
             classType: request.body.classType,
-            price: request.body.price,
             status: request.body.status,
-            description: request.body.description,
-            features: request.body.features
         }
         await new Room(room).save().then((room) => {
             console.log(room);

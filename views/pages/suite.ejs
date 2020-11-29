@@ -214,7 +214,7 @@
                     <% }else{ %>
                         <li role="presentation">
                             <%}%>
-                                <a href="#<%= rooms[i]._id.replace(' ','') %>" aria-controls="<%= rooms[i]._id %>" role="tab" data-toggle="tab">
+                                <a href="#<%= rooms[i].classType.name.replace(' ','') %>" aria-controls="<%= rooms[i].classType.name %>" role="tab" data-toggle="tab">
                                     <%=  rooms[i]._id %>
                                 </a>
                         </li>
@@ -224,47 +224,44 @@
         <!-- Accessing Suite -->
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
-                <% let id = rooms[i]._id.replace(' ','') %>
+                <% let id = rooms[i].classType.name.replace(' ','') %>
                     <div role="tabpanel" class="tab-pane active" id="<%= id %>">
                         <% }else{ %>
-                            <% let id = rooms[i]._id.replace(' ','') %>
+                            <% let id = rooms[i].classType.name.replace(' ','') %>
                                 <div role="tabpanel" class="tab-pane" id="<%= id %>">
                                     <%}%>
                                         <legend>
                                             <%= rooms[i]._id %>
                                         </legend>
-                                        <% rooms[i].rooms.forEach((room) =>{ %>
-                                            <div class="feature-full-1col">
-                                                <div class="image">
-                                                    <img src="<%= room.imageUrl %> " width="100%" alt="">
-                                                    <div class="descrip text-center">
-                                                        <p><small>For as low as</small><span> Php <%- room.price %> /night</span></p>
-                                                    </div>
-                                                    <div class="features">
-                                                        <h1> Features </h1>
-                                                        <% for( let i = 0; i < room.features.length; i++ ) { %>
-                                                            <li>
-                                                                <%- room.features[i] %>
-                                                                    <% }%>
-                                                            </li>
-                                                    </div>
+                                        <div class="feature-full-1col">
+                                            <div class="image">
+                                                <img src="<%= rooms[i].imageUrl %> " width="100%" alt="">
+                                                <div class="descrip text-center">
+                                                    <p><small>For as low as</small><span> Php <%- room.price %> /night</span></p>
                                                 </div>
-                                                <div class="desc">
-                                                    <h1> Locations </h1>
-                                                    <a href="#">
-                                                        <p class="text-justify" style="font-size: 20px;"> Located at Floor
-                                                            <%- room.floorNo %>
-                                                                <br> Room
-                                                                <%- room.no %>
-                                                        </p>
-                                                    </a>
-                                                    <br>
-                                                    <%- room.description %>
-                                                        <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                                                <div class="features">
+                                                    <h1> Features </h1>
+                                                    <% for( let i = 0; i < room.classType.features.length; i++ ) { %>
+                                                        <li>
+                                                            <%- rooms[i].classType.features[i] %>
+                                                                <% }%>
+                                                        </li>
                                                 </div>
                                             </div>
-                                            <%})%>
-
+                                            <div class="desc">
+                                                <h1> Locations </h1>
+                                                <a href="#">
+                                                    <p class="text-justify" style="font-size: 20px;"> Located at Floor
+                                                        <%- room.floorNo %>
+                                                            <br> Room
+                                                            <%- room.no %>
+                                                    </p>
+                                                </a>
+                                                <br>
+                                                <%- room.description %>
+                                                    <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                                            </div>
+                                        </div>
                                 </div>
                                 <% }; %>
                     </div>
