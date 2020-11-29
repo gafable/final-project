@@ -15,10 +15,11 @@ async function rooms(request, response) {
             },
             model: "ClassType"
         }).exec((error, rooms) => {
+            console.log(rooms);
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
-                rooms: rooms
+                rooms: rooms.filter(room => room.classType != null)
             })
         })
     } catch (error) {
@@ -26,9 +27,8 @@ async function rooms(request, response) {
     }
 }
 
-
-async function suite(request, response) {
-    try {
+async function availableRooms(request, response) {
+   
         try {
             await Room.find({}).populate({
                 path: 'classType',
@@ -46,9 +46,7 @@ async function suite(request, response) {
         } catch (error) {
             console.log(error);
         }
-    } catch (error) {
-        console.log(error);
-    }
+    
 }
 
 async function blogs(request, response) {
@@ -68,11 +66,11 @@ async function services(request, response) {
     })
 }
 
-// async function suite(request, response) {
-//     response.render('pages/suite', {
-//         title: 'HighQua Suite'
-//     })
-// }
+async function suite(request, response) {
+    response.render('pages/suite', {
+        title: 'HighQua Suite'
+    })
+}
 
 async function reservation(request, response) {
     response.render('pages/reservation', {
@@ -94,5 +92,6 @@ module.exports = {
     services,
     suite,
     reservation,
+    availableRooms,
     profile
 }
