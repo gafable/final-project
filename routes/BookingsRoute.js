@@ -7,7 +7,7 @@ const CheckRoomAvailability = require('./../middleware/CheckRoomAvailabilty')
 router.get('/', bookingController.index)
 router.get('/rooms/:id', bookingController.create)
 router.get('/show/:id', bookingController.show)
-router.post('/', [VerifyJwtToken, CheckRoomAvailability], bookingController.store)
+router.post('/', VerifyJwtToken, bookingController.store)
 router.post('/update/:id', bookingController.update)
 router.post('/delete/:id', bookingController.destroy)
 

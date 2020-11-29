@@ -1,5 +1,6 @@
 const Booking = require('./../models/Booking')
 const Room = require('../models/Room')
+const ClassType = require('./../models/ClassType')
 
 async function index(request, response) {
 
@@ -25,12 +26,18 @@ async function show(request, response) {
 
 }
 async function store(request, response) {
+    try {
+        const bookingDate = request.body.bookingDate.replace(/ /g, '').split('/')
+        await ClassType.findOne({ _id: request })
+        await new Booking(request.booking).save((error) => {
+            if (error) return response.redirect('back')
+            response.redirect('back')
+            console.log('booking save');
+        })
+    } catch (error) {
 
-    await new Booking(request.booking).save((error) => {
-        if (error) return response.redirect('back')
-        response.redirect('back')
-        console.log('booking save');
-    })
+    }
+
 }
 
 
@@ -40,6 +47,29 @@ async function update(request, response) {
 }
 
 async function destroy(request, response) {
+
+}
+
+async function check(request, response) {
+    try {
+        const bookingDate = request.body.bookingDate.replace(/ /g, '').split('/')
+        await ClassType.find({ _id: request.params.id }).populate({
+            path: 'rooms',
+            match: {
+                checkIn: {
+                    $gte: bookingDate[0],
+                    $lte: bookingDate[1]
+                },
+                checkOut: {
+                    $gte: bookingDate[0],
+                    $lte: bookingDate[1]
+                },
+                status: "confirmed"
+            }
+        })
+    } catch (error) {
+
+    }
 
 }
 

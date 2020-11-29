@@ -80,7 +80,7 @@ async function reservation(request, response) {
     })
 }
 async function profile(request, response) {
-    response.render('pages/clientProfile', {
+    response.render('pages/client-profile', {
         layout: 'layouts/client',
         header: 'Profile info '
     })
