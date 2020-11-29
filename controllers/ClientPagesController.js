@@ -1,4 +1,7 @@
 const Room = require('./../models/RoomModel')
+
+
+
 async function index(request, response) {
     response.render('pages/index', {
         title: 'HighQua HomePage'
@@ -71,6 +74,12 @@ async function reservation(request, response) {
         title: 'HighQua Reservation'
     })
 }
+async function profile(request, response) {
+    response.render('pages/clientProfile', {
+        layout: 'layouts/client',
+        header: 'Profile info '
+    })
+}
 
 module.exports = {
     index,
@@ -80,5 +89,6 @@ module.exports = {
     services,
     suite,
     reservation,
-    availableRooms
+    availableRooms,
+    profile
 }

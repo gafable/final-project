@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const RoomSchema = new mongoose.Schema({
 
-    no: { type: Number, required: true },
+    no: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    floorNo: { type: Number, required: true },
+    floorNo: { type: String, required: true },
     type: { type: String, required: true },
     classType: { type: String, required: true },
     price: { type: Number, required: true },

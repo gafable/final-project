@@ -10,6 +10,7 @@ router.get('/reserved', roomsController.reserved)
 router.get('/history', roomsController.history)
 router.get('/show/:id', roomsController.show)
 router.get('/edit/:id', roomsController.edit)
+router.get('/check-availabilty', roomsController.checkAvailability)
 router.post('/create', upload.single('roomImage'), roomsController.create)
 router.post('/update/:id', upload.single('roomImage'), roomsController.update)
 
