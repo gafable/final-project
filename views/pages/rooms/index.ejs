@@ -214,7 +214,7 @@
                                                             <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
                                                             <%- room.description %>
                                                                 <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
-                                                                <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</button>
+                                                                <a href="/bookings/rooms/<%= room._id %>" class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</a>
                                                         </div>
                                                     </div>
                                                 </div>
