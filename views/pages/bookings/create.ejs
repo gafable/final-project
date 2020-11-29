@@ -1,0 +1,57 @@
+<div class="fh5co-parallax" style="background-image: url(/public/images/image-1.jpg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
+                <div class="fh5co-intro fh5co-table-cell">
+                    <h1 class="text-center">Make a Reservation</h1>
+                    <p>You'll surely enjoy your stay!</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fh5co-contact-section">
+    <div class="row">
+        <div class="col-md-3">
+            <div id="map" class="fh5co-map"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <h3>
+                    <%= room.classType %> (
+                        <small><%= room.no %> &bull; <%= room.floorNo %> floor </small> )
+                </h3>
+
+                <p>&#8369;
+                    <%= price %>
+                </p>
+
+
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+
+            </div>
+            <div class="col-md-12">
+
+                <form action="/bookings" method="post">
+                    <input type="hidden" name="room_id" value="<%= room._id  %>">
+                    <div class="form-group">
+                        <label for="bookingDate">Booking Date</label>
+                        <input type="text" class="form-control rounded" name="bookingDate" id="bookingDate" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Reserve Now" class="btn btn-primary">
+                        <input type="button" value="Check Availabilty" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>

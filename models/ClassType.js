@@ -1,21 +1,19 @@
 const mongoose = require("mongoose");
 
-const RoomSchema = new mongoose.Schema({
+const ClassTypeSchema = new mongoose.Schema({
 
-    no: { type: String, required: true },
+    name: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    floorNo: { type: String, required: true },
     type: { type: String, required: true },
-    classType: { type: String, required: true },
     price: { type: Number, required: true },
-    status: { type: String, required: true },
     description: { type: String, required: true },
     features: { type: [String], required: true },
-    reserves: [{
+    rooms: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ReserveRoom"
+        ref: "Room"
     }]
 })
 
 
-module.exports = mongoose.model('Room', RoomSchema)
+
+module.exports = mongoose.model('ClassType', ClassTypeSchema)

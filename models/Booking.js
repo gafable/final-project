@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ReserveRoomSchema = new mongoose.Schema({
+const BookingSchema = new mongoose.Schema({
 
     checkIn: {
         type: Date,
@@ -10,16 +10,21 @@ const ReserveRoomSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    status: {
+        type: String,
+        default: "pending",
+        required: false
+    },
     account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Account"
     },
-    room: [{
+    room: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Room"
-    }]
+    }
 
 })
 
 
-module.exports = mongoose.model('ReserveRoom', ReserveRoomSchema)
+module.exports = mongoose.model('Booking', BookingSchema)

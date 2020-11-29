@@ -177,6 +177,7 @@
     <div class="tab-content">
         <!-- Rooms -->
         <% for(let i = 0 ; i < rooms.length; i++){ %>
+<<<<<<< HEAD:views/pages/rooms/roomlist.ejs
         <div id="<%=  rooms[i]._id %>">
             <div id="fh5co-hotel-section">
                 <% if (i == 0 || i % 3 ==0) { %>
@@ -203,6 +204,43 @@
                                 <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i>
                                     Book Now</button>
                             </div>
+=======
+            <% if(i == 0){%>
+                <div role="tabpanel" class="tab-pane active" id="<%=  rooms[i]._id %>">
+                    <% }else{ %>
+                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id %>">
+                            <%}%>
+
+                                <legend>
+                                    <%= rooms[i]._id %>
+                                </legend>
+                                <div>
+                                    This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
+                                </div>
+                                <div id="fh5co-hotel-section">
+                                    <div class="">
+                                        <div class="row">
+                                            <% rooms[i].rooms.forEach((room) =>{ %>
+                                                <div class="col-md-4">
+                                                    <div class="hotel-content">
+                                                        <input type="hidden" class="room-id" value="<%= room._id %> ">
+                                                        <div id="singleroom1" class="hotel-grid">
+                                                            <img src="<%= room.imageUrl %> " width="100%" alt="">
+                                                            <div class="price"><small>For as low as</small><span>$100/night</span></div>
+                                                        </div>
+                                                        <div class="desc">
+                                                            <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
+                                                            <%- room.description %>
+                                                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
+                                                                <a href="/bookings/rooms/<%= room._id %>" class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%})%>
+                                        </div>
+                                    </div>
+                                </div>
+>>>>>>> f9976b6b1fa6f5786d471851e51d6935da2080cd:views/pages/rooms/index.ejs
                         </div>
                     </div>
                     <%})%>
