@@ -15,10 +15,11 @@ async function rooms(request, response) {
             },
             model: "ClassType"
         }).exec((error, rooms) => {
+            console.log(rooms);
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
-                rooms: rooms
+                rooms: rooms.filter(room => room.classType != null)
             })
         })
     } catch (error) {

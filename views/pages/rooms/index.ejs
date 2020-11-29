@@ -172,124 +172,78 @@
 </div>
 
 
-<!-- Nav tabs -->
+
+
 <div class="card">
-    <div class="tab-content">
-        <!-- Rooms -->
-        <% for(let i = 0 ; i < rooms.length; i++){ %>
-<<<<<<< HEAD:views/pages/rooms/roomlist.ejs
-        <div id="<%=  rooms[i]._id %>">
-            <div id="fh5co-hotel-section">
-                <% if (i == 0 || i % 3 ==0) { %>
-                <div class="row">
-                    <%}%>
-                    <div class="col-md-4">
-                        <div class="hotel-content">
-                            <% rooms[i].rooms.forEach((room) =>{ %>
-                            <input type="hidden" class="room-id" value="<%= room._id %> ">
-                            <div  class="hotel-grid">
-                                <img src="<%= room.imageUrl %> " width="100%" alt="">
-                                <div class="price"><small>For as low as</small><span>$100/night</span></div>
-                            </div>
-                            <div class="desc">
-                                <h3><a href="#"> <%= room.classType %> &bull; <%= room.floorNo %> floor </a>
-                                </h3>
-                                <h3>
-                                    <a href="#"> P
-                                        <%= room.price %>
-                                    </a>
-                                </h3>
-                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i>
-                                    More Info</button>
-                                <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i>
-                                    Book Now</button>
-                            </div>
-=======
-            <% if(i == 0){%>
-                <div role="tabpanel" class="tab-pane active" id="<%=  rooms[i]._id %>">
-                    <% }else{ %>
-                        <div role="tabpanel" class="tab-pane" id="<%= rooms[i]._id %>">
-                            <%}%>
+    <div class="card-body">
 
-                                <legend>
-                                    <%= rooms[i]._id %>
-                                </legend>
-                                <div>
-                                    This room has enough space for a single bed and enough space for one person. A single type of room is perfect for a person who wants to be alone and get away from stress.
-                                </div>
-                                <div id="fh5co-hotel-section">
-                                    <div class="">
-                                        <div class="row">
-                                            <% rooms[i].rooms.forEach((room) =>{ %>
-                                                <div class="col-md-4">
-                                                    <div class="hotel-content">
-                                                        <input type="hidden" class="room-id" value="<%= room._id %> ">
-                                                        <div id="singleroom1" class="hotel-grid">
-                                                            <img src="<%= room.imageUrl %> " width="100%" alt="">
-                                                            <div class="price"><small>For as low as</small><span>$100/night</span></div>
-                                                        </div>
-                                                        <div class="desc">
-                                                            <h3><a href="#">Rm. <%= room.no %> &bull; <%= room.floorNo %> floor </a></h3>
-                                                            <%- room.description %>
-                                                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
-                                                                <a href="/bookings/rooms/<%= room._id %>" class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <%})%>
-                                        </div>
-                                    </div>
-                                </div>
->>>>>>> f9976b6b1fa6f5786d471851e51d6935da2080cd:views/pages/rooms/index.ejs
-                        </div>
-                    </div>
-                    <%})%>
-                    <% if (i === 0 || i % 3 ===0) { %>
-                </div>
-                <%}%>
-
-            </div>
-        </div>
-        <% }; %>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-    <!-- Modal OverwaterBungalow Suite  -->
-    <div class="modal fade " id="akoa" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
-                            aria-hidden="true">&times;</span></button>
-                    <h2 class="modal-title title" style="color: orange;"> </h2>
-                </div>
-                <div class="modal-body bg-danger" style="padding: 0px;">
-                    <div class="feature-full-1col m-0">
-                        <div class="image">
-                            <div class="descrip text-center">
-                                <p><small>For as low as</small><span>$100/night</span></p>
-                            </div>
+        <div class="row">
+            <% rooms.forEach((room)=> {%>
+            <div class="col-md-4">
+                <div id="fh5co-hotel-section">
+                    <div class="hotel-content">
+                        <input type="hidden" class="room-id" value="<%= room._id %>">
+                        <div class="hotel-grid">
+                            <img src="public/images/blog.jpg" width="100%" alt="">
+                            <div class="price"><small>For as low as</small><span>$100/night</span></div>
                         </div>
                         <div class="desc">
-                            <ul class="list-group">
-                                <h2 style="color: orange;" class="subtitle"> </h2>
-                                <p> Room Details</p>
-                                <div id="descriptionData"> </div>
-                                <p> Room Features </p>
-                                <p id="features"></p>
-                            </ul>
-                            <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i
-                                        class="ti-angle-right"></i></a></p>
+                            <h3><a href="#"> <%= room.classType.name %> &bull; <%= room.floorNo %> floor </a>
+                            </h3>
+                            <h3>
+                                <a href="#"> P
+                                    <%= room.classType.price %>
+                                </a>
+                            </h3>
+                            <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i>
+                                More Info</button>
+                            <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i>
+                                Book Now</button>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <%})%>
         </div>
     </div>
+</div>
+</div>
+
+
+
+
+
+
+<!-- Modal OverwaterBungalow Suite  -->
+<div class="modal fade " id="akoa" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
+                        aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title title" style="color: orange;"> </h2>
+            </div>
+            <div class="modal-body bg-danger" style="padding: 0px;">
+                <div class="feature-full-1col m-0">
+                    <div class="image">
+                        <div class="descrip text-center">
+                            <p><small>For as low as</small><span>$100/night</span></p>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <ul class="list-group">
+                            <h2 style="color: orange;" class="subtitle"> </h2>
+                            <p> Room Details</p>
+                            <div id="descriptionData"> </div>
+                            <p> Room Features </p>
+                            <p id="features"></p>
+                        </ul>
+                        <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i
+                                    class="ti-angle-right"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

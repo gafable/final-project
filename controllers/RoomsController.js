@@ -78,7 +78,7 @@ async function create(request, response) {
 }
 
 async function show(request, response) {
-    await Room.findOne({ _id: request.params.id }, (error, room) => {
+    await Room.findOne({ _id: request.params.id }).populate('classType').exec((error, room) => {
         if (error) {
             return response.status(404).json({
                 error: error
