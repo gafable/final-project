@@ -15,10 +15,11 @@ async function rooms(request, response) {
             },
             model: "ClassType"
         }).exec((error, rooms) => {
+            console.log(rooms);
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
-                rooms: rooms
+                rooms: rooms.filter(room => room.classType != null)
             })
         })
     } catch (error) {
@@ -29,22 +30,41 @@ async function rooms(request, response) {
 
 async function suite(request, response) {
     try {
-        try {
-            await Room.find({}).populate('classType').exec((error, rooms) => {
-                console.log(rooms)
-                if (error) return response.redirect('back')
-                response.render('pages/suite', {
-                    title: 'HighQua Suite Lists',
-                    rooms: rooms.filter(room => room.classType.type == "suite")
-
-                })
+        await Room.find({}).populate({
+            path: 'classType',
+            match: {
+                type: "suite"
+            },
+            model: "ClassType"
+        }).exec((error, suite) => {
+            console.log(suite);
+            if (error) return response.redirect('back')
+            response.render('pages/suite', {
+                title: 'HighQua Suite',
+                rooms: suite.filter(suite => suite.classType != null)
             })
-        } catch (error) {
-            console.log(error);
-        }
+        })
     } catch (error) {
         console.log(error);
     }
+}
+
+async function availableRooms(request, response) {
+
+    try {
+        await Room.find({}).populate('classType').exec((error, rooms) => {
+            console.log(rooms)
+            if (error) return response.redirect('back')
+            response.render('pages/suite', {
+                title: 'HighQua Suite Lists',
+                rooms: rooms.filter(room => room.classType.type == "suite")
+
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 async function blogs(request, response) {
@@ -64,6 +84,11 @@ async function services(request, response) {
     })
 }
 
+// async function suite(request, response) {
+//     response.render('pages/suite', {
+//         title: 'HighQua Suite'
+//     })
+// }
 
 async function reservation(request, response) {
     response.render('pages/reservation', {
@@ -85,5 +110,6 @@ module.exports = {
     services,
     suite,
     reservation,
+    availableRooms,
     profile
 }

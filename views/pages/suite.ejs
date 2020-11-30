@@ -206,22 +206,27 @@
     </div>
 </div>
 
+
+<!-- 
 <div class="card">
     <ul class="nav nav-tabs text-center" role="tablist" class="nav navbar-collapse">
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
                 <li role="presentation" class="active">
-                    <% }else{ %>
+                    <% }else{ %0>
                         <li role="presentation">
                             <%}%>
-                                <a href="#<%= rooms[i].classType.name.replace(' ','') %>" aria-controls="<%= rooms[i].classType.name %>" role="tab" data-toggle="tab">
-                                    <%=  rooms[i]._id %>
-                                </a>
-                        </li>
-                        <% }; %>
+                        <a href="#<%= rooms[i].classType.name.replace(' ','') %>" aria-controls="<%= rooms[i].classType.name %>" role="tab" data-toggle="tab">
+                            <%=  rooms[i]._id %>
+                        </a>
+                </li>
+                <% }; %>
+        <% }; %>
     </ul>
+
+    
     <div class="tab-content">
-        <!-- Accessing Suite -->
+        Accessing Suite 
         <% for(let i = 0 ; i < rooms.length; i++){ %>
             <% if(i == 0){%>
                 <% let id = rooms[i].classType.name.replace(' ','') %>
@@ -265,4 +270,74 @@
                                 </div>
                                 <% }; %>
                     </div>
+    </div>  -->
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <% suite.forEach((suite)=> {%>
+                <div class="col-md-4">
+                    <div id="fh5co-hotel-section">
+                        <div class="hotel-content">
+                            <input type="hidden" class="room-id" value="<%= room._id %>">
+                            <div class="hotel-grid">
+                                <img src="public/images/blog.jpg" width="100%" alt="">
+                                <div class="price"><small>For as low as</small><span>$100/night</span></div>
+                            </div>
+                            <div class="desc">
+                                <h3>
+                                    <a href="#">
+                                        <%= suite.classType.name %> &bull;
+                                            <%= suite.floorNo %> floor </a>
+                                </h3>
+                                <h3>
+                                    <a href="#"> P
+                                        <%= suite.classType.price %>
+                                    </a>
+                                </h3>
+                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
+                                <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%})%>
+        </div>
     </div>
+</div>
+
+
+
+<!-- Modal OverwaterBungalow Suite  -->
+<div class="modal fade " id="akoa" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span
+                            aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title title" style="color: orange;"> </h2>
+            </div>
+            <div class="modal-body bg-danger" style="padding: 0px;">
+                <div class="feature-full-1col m-0">
+                    <div class="image">
+                        <div class="descrip text-center">
+                            <p><small>For as low as</small><span>$100/night</span></p>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <ul class="list-group">
+                            <h2 style="color: orange;" class="subtitle"> </h2>
+                            <p> Room Details</p>
+                            <div id="descriptionData"> </div>
+                            <p> Room Features </p>
+                            <p id="features"></p>
+                        </ul>
+                        <p><a href="#" class="btn btn-primary btn-luxe-primary">Book Now <i class="ti-angle-right"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
