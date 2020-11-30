@@ -1,4 +1,5 @@
 const layout = 'layouts/admin'
+const ClassType = require('../models/ClassType')
 const Room = require('./../models/Room')
 const parseRequestBody = require('./../utilities/parseRequestBody')
 
@@ -58,20 +59,25 @@ async function checkAvailability(request, response) {
 
 async function create(request, response) {
     try {
-        console.log(request.file);
-        const room = {
-            no: request.body.no,
-            floorNo: request.body.floorNo,
-            classType: request.body.classType,
-            status: request.body.status,
-        }
-        await new Room(room).save().then((room) => {
-            console.log(room);
-            response.redirect('/rooms/all')
-        }).catch((error) => {
-            console.log(error);
-        })
+        await ClassType.findOne({ _id: request.body.classType }, (error, classType) => {
+            if (error) {
+                console.log(error);
+                return response.redirect('back')
+            }
+            new Room({
+                no: request.body.no,
+                floorNo: request.body.floorNo,
+                classType: classType,
+                status: request.body.status,
+            }).save((error, room) => {
+                if (!error) {
+                    classType.rooms.push(room)
+                    classType.save()
+                    response.redirect('back')
+                }
+            })
 
+        })
     } catch (error) {
         console.log(error);
     }

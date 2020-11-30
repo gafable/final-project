@@ -27,6 +27,7 @@ async function store(request, response) {
     const classType = {
         name: request.body.name,
         type: request.body.type,
+        capacity: request.body.capacity,
         imageUrl: request.file.destination + '/' + request.file.filename,
         price: request.body.price,
         description: request.body.description,
@@ -38,6 +39,25 @@ async function store(request, response) {
     }).catch((error) => {
         console.log(error);
     })
+}
+
+async function show(request, response) {
+    try {
+        await ClassType.findOne({ _id: request.params.id }, (error, classType) => {
+            if (error) return response.status(500).json({
+                message: "Server Error"
+            })
+            response.status(200).json({
+                classType: classType
+            })
+        })
+    } catch (error) {
+        response.status(500).json({
+            message: "Server Error"
+        })
+        console.log(error);
+    }
+
 }
 
 async function edit(request, response) {
@@ -76,7 +96,7 @@ async function destroy(request, response) {
 
 }
 
-async function classTypes(request, response) {
+async function all(request, response) {
     try {
         await ClassType.find({}, (error, result) => {
             if (error) {
@@ -100,5 +120,6 @@ module.exports = {
     edit,
     update,
     destroy,
-    classTypes
+    all,
+    show
 }

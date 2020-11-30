@@ -1,5 +1,5 @@
 const Room = require('./../models/Room')
-
+const Suite = require('./../models')
 async function index(request, response) {
     response.render('pages/index', {
         title: 'HighQua HomePage'
@@ -30,7 +30,7 @@ async function rooms(request, response) {
 
 async function suite(request, response) {
     try {
-        await Room.find({}).populate({
+        await Suite.find({}).populate({
             path: 'classType',
             match: {
                 type: "suite"

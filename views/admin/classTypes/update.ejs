@@ -9,9 +9,13 @@
         <form action="/classtypes/update" method="POST" enctype="multipart/form-data" id="roomForm">
             <div class="row">
                 <input type="hidden" value="<%= classType._id %>" name="id">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-12">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<%= classType.name %> " required>
+                    <input type="text" class="form-control" id="name" name="name" value="<%= classType.name %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="capacity">Capacity</label>
+                    <input type="number" class="form-control" id="capacity" name="capacity" value="<%= classType.capacity %>" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="type">Type</label>

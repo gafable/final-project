@@ -21,8 +21,7 @@
         <div class="col-md-6">
             <div class="col-md-12">
                 <h3>
-                    <%= room.classType %> (
-                        <small><%= room.no %> &bull; <%= room.floorNo %> floor </small> )
+                    <%= classType.name %>
                 </h3>
 
                 <p>&#8369;
@@ -36,22 +35,19 @@
             <div class="col-md-12">
 
                 <form action="/bookings" method="post">
-                    <input type="hidden" name="room_id" value="<%= room._id  %>">
+                    <input type="hidden" name="room" value="" id="room" required>
+                    <input type="hidden" id="classtype_id" name="classtype_id" value="<%= classType._id  %>">
                     <div class="form-group">
                         <label for="bookingDate">Booking Date</label>
-                        <input type="text" class="form-control rounded" name="bookingDate" id="bookingDate" />
+                        <input type="text" class="form-control rounded" name="bookingDate" id="bookingDate" required />
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Reserve Now" class="btn btn-primary">
-                        <input type="button" value="Check Availabilty" class="btn btn-success">
+                        <small style="display: block;" class="helper-msg">Check availabilty first before you can reserve.</small>
+                        <input type="submit" disabled value="Reserve Now" class="btn btn-primary book-now">
+                        <button type="button" class="btn btn-success check">Check Availabilty <i class="fa fa-spinner fa-spin" style="display: none;"></i></button>
                     </div>
                 </form>
             </div>
-
-
-
-
-
         </div>
 
     </div>

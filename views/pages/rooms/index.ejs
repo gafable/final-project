@@ -173,11 +173,11 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <% rooms.forEach((room)=> {%>
+            <% classTypes.forEach((classType)=> {%>
                 <div class="col-md-4">
                     <div id="fh5co-hotel-section">
                         <div class="hotel-content">
-                            <input type="hidden" class="room-id" value="<%= room._id %>">
+                            <input type="hidden" class="room-id" value="<%= classType._id %>">
                             <div class="hotel-grid">
                                 <img src="public/images/blog.jpg" width="100%" alt="">
                                 <div class="price"><small>For as low as</small><span>$100/night</span></div>
@@ -185,16 +185,16 @@
                             <div class="desc">
                                 <h3>
                                     <a href="#">
-                                        <%= room.classType.name %> &bull;
-                                            <%= room.floorNo %> floor </a>
+                                        <%= classType.name %> &bull;
                                 </h3>
                                 <h3>
                                     <a href="#"> P
-                                    <%= room.classType.price %>
+                                    <%= classType.price %>
                                 </a>
                                 </h3>
-                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i> More Info</button>
-                                <button class="btn btn-sm w-50 btn-primary"> <i class="ti-calendar mr-3"></i> Book Now</button>
+                                <button class="btn btn-sm w-50 btn-info modalView"> <i class="fa fa-info mr-3"></i>
+                                More Info</button>
+                                <a href="/bookings/classtypes/<%= classType._id %>" class="btn btn-sm w-50 btn-primary book-now"> <i class="ti-calendar mr-3"></i> Book Now</a>
                             </div>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
 
 
 <!-- Modal OverwaterBungalow Suite  -->
-<div class="modal fade " id="akoa" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade " id="classTypeModal" tabindex="-1" role="dialog" aria-labelledby="classTypeModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
