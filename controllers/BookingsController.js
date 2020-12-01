@@ -67,7 +67,8 @@ async function store(request, response) {
             checkIn: bookingDate[0],
             checkOut: bookingDate[1],
             account: request.user._id,
-            room: request.body.room
+            room: request.body.room,
+            
         }
         await Room.findOne({ _id: request.body.room }, (error, room) => {
             if (!error) {

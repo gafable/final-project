@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+const AccountInfo = require('./AccountInfo')
 
 const AccountSchema = new mongoose.Schema({
     username: {
@@ -21,7 +22,8 @@ const AccountSchema = new mongoose.Schema({
     accountInfo: {
         required: false,
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'AccountInfo'
+        ref: 'AccountInfo',
+        default : new AccountInfo()
     },
     bookings: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -9,6 +9,7 @@
                 <thead>
                     <tr>
                         <th>Customer</th>
+                        <th>Room #</th>
                         <th>Check In</th>
                         <th>Check Out</th>
                         <th>Status</th>
@@ -20,6 +21,7 @@
                 <tfoot>
                     <tr>
                         <th>Customer</th>
+                        <th>Room #</th>
                         <th>Check In</th>
                         <th>Check Out</th>
                         <th>Status</th>
@@ -34,6 +36,7 @@
                             <td>
                                 <%= booking.account.username %>
                             </td>
+                            <td><%= booking.room.no %> </td>
                             <td>
                                 <%= booking.checkIn.toISOString().replace('T',' ').replace('Z',' ').split(' ')[0] %>
                             </td>
@@ -44,7 +47,7 @@
                                 <%= booking.status %>
                             </td>
                             <td>
-                                100
+                                <%= booking.total %> 
                             </td>
                             <td>
                                 <%= booking.room.classType.name %>

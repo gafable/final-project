@@ -1,5 +1,6 @@
 const Account = require('./../models/Account')
-const parseRequestBody = require('./../../../utilities/parseRequestBody')
+const parseRequestBody = require('./../../../utilities/parseRequestBody');
+const AccountInfo = require('../models/AccountInfo');
 async function index(request, response) {
 
 }
@@ -27,14 +28,14 @@ async function store(request, response) {
             response.redirect('/')
         })
     } catch (error) {
-
+        console.log(error);
     }
 }
-
-function createProfile(request, response) {
+async function createProfile(request, response) {
     try {
+
         console.log(request.body);
-        const profile = { 
+        const profile = {
             firstname: request.body.firstname,
             lasttname: request.body.lasttname,
             firstname: request.body.firstname,
@@ -42,17 +43,36 @@ function createProfile(request, response) {
             birthday: request.body.birthday,
             age: request.body.age,
             address: request.body.address,
-            // account:
+            account: request.user._id
         }
+        await
+            await Account.findOne({ _id: request.user._id }, (error, account) => {
+                new AccountInfo(profile).save((err, accountInfo) => {
+                    if (err) {
+                        console.log(err);
+                        return response.render('pages/client-profile', {
+                            layout: 'layouts/client',
+                            header: 'Profile info '
+                        })
+
+                    }
+                    account.accountInfo = account
+                    account.save()
+
+                    response.redirect('/')
+                })
+            })
+
     } catch (error) {
-
+        console.log(error);
     }
-
 }
+
+
 async function update(request, response) {
 
     const accountToUpdate = parseRequestBody(request.body)
-    await Account.updateOne({ _id: request.params.id }, accountToUpdate, (error, result) => {
+    await Account.findOneAndUpdate({ _id: request.params.id }, accountToUpdate, (error, result) => {
         if (error) {
             response.render('/accounts/profile', {
                 layout: layout,
@@ -65,16 +85,27 @@ async function update(request, response) {
     })
 
 }
+
+
 async function destroy(request, response) {
 
 }
-
-
 async function profile(request, response) {
-    response.render('pages/client-profile', {
-        layout: 'layouts/client',
-        header: 'Profile info '
+    await Account.findOne({ _id: request.user._id }).populate('accountInfo').exec((error, account) => {
+        if (error) {
+            return response.redirect('back')
+        }
+        console.log(account.accountInfo);
+       
+        response.render('pages/client-profile', {
+            layout: 'layouts/client',
+            header: 'Profile info ',
+            title: 'Account Profile',
+            account: account
+
+        })
     })
+
 }
 
 function clients(request, response) {
