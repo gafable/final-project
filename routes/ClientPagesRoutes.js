@@ -22,8 +22,7 @@ router.get('/services', clientPagesController.services)
 router.get('/suite', clientPagesController.suite)
 
 router.get('/reservation', clientPagesController.reservation)
-router.get('/rooms/availability', clientPagesController.availableRooms)
 
-router.get('/accounts/profile', clientPagesController.profile)
+router.get('/rooms/availability', clientPagesController.availableRooms)
 
 module.exports = router

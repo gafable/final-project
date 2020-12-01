@@ -23,6 +23,23 @@ async function rooms(request, response) {
     }
 }
 
+async function suite(request, response) {
+    try {
+        await ClassType.find({ type: "suite" }, (error, classTypes) => {
+            console.log(suite);
+            if (error) return response.redirect('back')
+            response.render('pages/suite', {
+                title: 'HighQua Suite',
+                classTypes: classTypes,
+
+            })
+            console.log(classTypes)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function availableRooms(request, response) {
 
     try {
@@ -59,12 +76,6 @@ async function contact(request, response) {
 async function services(request, response) {
     response.render('pages/services', {
         title: 'HighQua Services'
-    })
-}
-
-async function suite(request, response) {
-    response.render('pages/suite', {
-        title: 'HighQua Suite'
     })
 }
 

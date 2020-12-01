@@ -35,6 +35,16 @@ h3 {
     padding-top: 30px;
 }
 
+.features {
+    margin-left: 25%;
+    margin-top: 10%;
+}
+
+.suiteLocation {
+    color: #000;
+    font-weight: 50px;
+}
+
 .modal-header-warning {
     /* padding-top: 10px; */
     padding-bottom: 5px;

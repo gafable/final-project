@@ -42,10 +42,6 @@ const VerifyJwtToken = require('./middleware/VerifyToken')
 const IsAdmin = require('./middleware/IsAdmin')
 
 // ---- Define all application routes ---- //
-
-
-
-
 app.use('/', require('./routes/ClientPagesRoutes'))
 app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
 app.use('/admin', [VerifyJwtToken, IsAdmin], require('./routes/AdminPagesRoutes'))
