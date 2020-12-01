@@ -1,4 +1,5 @@
 const Account = require('./../models/Account')
+const parseRequestBody = require('./../../../utilities/parseRequestBody')
 async function index(request, response) {
 
 }
@@ -33,7 +34,7 @@ async function store(request, response) {
 function createProfile(request, response) {
     try {
         console.log(request.body);
-        const profile = {
+        const profile = { 
             firstname: request.body.firstname,
             lasttname: request.body.lasttname,
             firstname: request.body.firstname,
