@@ -1,0 +1,22 @@
+<!-- DataTales Example -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <div class="m-0 font-weight-bold ">
+            <a href="/bookings">bookings</a> / update
+        </div>
+    </div>
+    <div class="card-body ">
+        <form action="/bokkings/update/<%= booking._id %>" method="post">
+            <div class="form-group">
+                <input type="text" id="bookingdate" class="form-control">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+</div>
+
