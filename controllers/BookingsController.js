@@ -3,7 +3,25 @@ const Room = require('../models/Room')
 const ClassType = require('./../models/ClassType')
 
 async function index(request, response) {
-
+    try {
+          await Booking.find({}).populate('account').populate({
+              path : 'room',
+              populate : {
+                  path : 'classType'
+              }
+          }).exec((error,bookings)=>{
+            if (error) return response.redirect('back')
+            response.render('admin/bookings/index',{
+                layout : 'layouts/admin',
+                title : 'Booking List',
+                bookings : bookings,
+                header : 'Bookings'
+            })
+          })  
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
 }
 
 async function create(request, response) {
@@ -27,8 +45,20 @@ async function create(request, response) {
 
 }
 
-async function show(request, response) {
-
+async function edit(request, response) {
+    try {
+        await Booking.findOne({_id:request.params.id},(error,booking)=>{
+            if (error) return response.redirect('back')
+            response.render('admin/bookings/update',{
+                layout: 'layouts/admin',
+                title: 'Update Booking',
+                header : 'Update Booking',
+                booking : booking
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
 }
 async function store(request, response) {
     try {
@@ -51,7 +81,7 @@ async function store(request, response) {
             }
         })
     } catch (error) {
-
+        console.log(error);
     }
 
 }
@@ -74,19 +104,24 @@ async function check(request, response) {
             model: 'Room',
             populate: {
                 path: 'bookings',
-                model: 'Booking',
-                match: {
-                    checkIn: {
-                        $lt: bookingDate[0]
-                    },
-                    checkOut: {
-                        $gt: bookingDate[1]
-                    }
-                }
+                model: 'Booking'
             }
         }).exec((error, result) => {
-
-            console.log(result);
+            if(error) return response.status(500).json({message : "Server Error."})
+            result.rooms = result.rooms.filter((room)=>{
+                if(!room.bookings.length) return room
+                var available = false;
+                for(let i = 0; i < room.bookings.length ;i++ ){
+                    if( ! (new Date(room.bookings[i].checkIn).getTime() + 8.64e+7  <= new Date(bookingDate[0]).getTime()) || 
+                        ! (new Date(room.bookings[i].checkOut).getTime() + 8.64e+7>= new Date(bookingDate[0]).getTime()))
+                    {
+                        available = true
+                        break
+                    }
+                }
+                 if(available) return room
+              
+            })
             response.status(200).json({
                 classType: result
             })
@@ -97,26 +132,11 @@ async function check(request, response) {
             error: error
         })
     }
-    // {
-    //     path: 'rooms',
-    //     match: {
-    //         checkIn: {
-    //             $gte: bookingDate[0],
-    //             $lte: bookingDate[1]
-    //         },
-    //         checkOut: {
-    //             $gte: bookingDate[0],
-    //             $lte: bookingDate[1]
-    //         },
-    //         status: "confirmed"
-    //     }
-    // }
-
 }
 
 module.exports = {
     index,
-    show,
+    edit,
     store,
     update,
     destroy,

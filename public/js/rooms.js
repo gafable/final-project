@@ -28,12 +28,20 @@ $('button.check').click(function(e) {
         },
         success: function(data, status) {
             if (status == "success") {
-                $('#room').val(data.classType.rooms[0]._id)
-                $('.book-now').prop('disabled', false)
-                $('.helper-msg').text(`There ${data.classType.rooms.length}  room available for this classtype you can book now.`)
-                $('button.check').find('i.fa').css('display', 'none')
-                $('button.check').css('display', 'none').fadeOut(5000);
-                $('.book-now').addClass('btn-block').fadeIn(5000);
+                if(data.classType.rooms.length){
+                    $('#room').val(data.classType.rooms[0]._id)
+                    $('.book-now').prop('disabled', false)
+                    $('.helper-msg').text(`There ${data.classType.rooms.length}  room available for this classtype you can book now.`)
+                    $('button.check').find('i.fa').css('display', 'none')
+                    $('button.check').css('display', 'none').fadeOut(5000);
+                    $('.book-now').addClass('btn-block').fadeIn(5000);
+                    $('button.check').find('i.fa').css('display', 'none')
+                }else{
+                    $('.helper-msg').text(`There is no  room available for this classtype you can't book now. Try to change the date`)
+               
+                    $('button.check').find('i.fa').css('display', 'none')
+                }
+               
                 console.log(data.classType.name);
             }
         }
@@ -89,6 +97,4 @@ $('#bookingDate').daterangepicker({
     "opens": "center",
     "drops": "up",
     "cancelClass": "btn-danger"
-}, function(start, end, label) {
-    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
 });
