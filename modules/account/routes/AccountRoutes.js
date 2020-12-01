@@ -14,5 +14,5 @@ router.post('/', accountController.store) // create account
 router.post('/:id', accountController.update) // update account by id
 router.post('/:id', accountController.destroy) // delete account by id
 router.post('/update/:id', VerifyJwtToken, accountController.update)
-router.get('/profile/info', accountController.createProfile)
+router.post('/accounts/profile/info', accountController.createProfile)
 module.exports = router
