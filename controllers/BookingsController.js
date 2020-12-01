@@ -4,20 +4,20 @@ const ClassType = require('./../models/ClassType')
 
 async function index(request, response) {
     try {
-          await Booking.find({}).populate('account').populate({
-              path : 'room',
-              populate : {
-                  path : 'classType'
-              }
-          }).exec((error,bookings)=>{
+        await Booking.find({}).populate('account').populate({
+            path: 'room',
+            populate: {
+                path: 'classType'
+            }
+        }).exec((error, bookings) => {
             if (error) return response.redirect('back')
-            response.render('admin/bookings/index',{
-                layout : 'layouts/admin',
-                title : 'Booking List',
-                bookings : bookings,
-                header : 'Bookings'
+            response.render('admin/bookings/index', {
+                layout: 'layouts/admin',
+                title: 'Booking List',
+                bookings: bookings,
+                header: 'Bookings'
             })
-          })  
+        })
     } catch (error) {
         console.log(error);
         response.redirect('back')
@@ -47,13 +47,13 @@ async function create(request, response) {
 
 async function edit(request, response) {
     try {
-        await Booking.findOne({_id:request.params.id},(error,booking)=>{
+        await Booking.findOne({ _id: request.params.id }, (error, booking) => {
             if (error) return response.redirect('back')
-            response.render('admin/bookings/update',{
+            response.render('admin/bookings/update', {
                 layout: 'layouts/admin',
                 title: 'Update Booking',
-                header : 'Update Booking',
-                booking : booking
+                header: 'Update Booking',
+                booking: booking
             })
         })
     } catch (error) {
@@ -63,11 +63,13 @@ async function edit(request, response) {
 async function store(request, response) {
     try {
         const bookingDate = request.body.bookingDate.replace(/ /g, '').split('/')
+        const price = request.body.price.replace(',', '').split('.')[0]
         const booking = {
-            checkIn: bookingDate[0],
-            checkOut: bookingDate[1],
+            checkIn: new Date(bookingDate[0]).toLocaleDateString(),
+            checkOut: new Date(bookingDate[1]).toLocaleDateString(),
             account: request.user._id,
-            room: request.body.room
+            room: request.body.room,
+            total: calculateTotal(bookingDate, price)
         }
         await Room.findOne({ _id: request.body.room }, (error, room) => {
             if (!error) {
@@ -104,28 +106,32 @@ async function check(request, response) {
             model: 'Room',
             populate: {
                 path: 'bookings',
-                model: 'Booking'
+                model: 'Booking',
             }
         }).exec((error, result) => {
-            if(error) return response.status(500).json({message : "Server Error."})
-            result.rooms = result.rooms.filter((room)=>{
-                if(!room.bookings.length) return room
+            if (error) {
+                console.log(error)
+                return response.status(500).json({ message: "Server Error." })
+            }
+            result.rooms = result.rooms.filter((room) => {
+                if (!room.bookings.length) return room
                 var available = false;
-                for(let i = 0; i < room.bookings.length ;i++ ){
-                    if( ! (new Date(room.bookings[i].checkIn).getTime() + 8.64e+7  <= new Date(bookingDate[0]).getTime()) || 
-                        ! (new Date(room.bookings[i].checkOut).getTime() + 8.64e+7>= new Date(bookingDate[0]).getTime()))
-                    {
+                for (let i = 0; i < room.bookings.length; i++) {
+                    if (!(new Date(room.bookings[i].checkIn).toLocaleDateString() <= new Date(bookingDate[0]).toLocaleDateString() &&
+                            new Date(room.bookings[i].checkOut).toLocaleDateString() >= new Date(bookingDate[0]).toLocaleDateString())) {
                         available = true
                         break
                     }
                 }
-                 if(available) return room
-              
+                if (available) return room
+
             })
+            console.log(result);
             response.status(200).json({
                 classType: result
             })
         })
+
     } catch (error) {
         console.log(error);
         response.status(500).json({
@@ -134,6 +140,14 @@ async function check(request, response) {
     }
 }
 
+function calculateTotal(date, price) {
+    console.log(date);
+    let [checkIn, checkOut] = date
+    checkIn = new Date(checkIn).getTime()
+    checkOut = new Date(checkOut).getTime()
+    let differ_in_days = (checkOut - checkIn) / (1000 * 3600 * 24)
+    return differ_in_days < 1 ? price : price * differ_in_days;
+}
 module.exports = {
     index,
     edit,

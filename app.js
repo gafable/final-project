@@ -51,4 +51,4 @@ app.use('/rooms', require('./routes/RoomsRoute'))
 app.use('/bookings', require('./routes/BookingsRoute'))
 app.use('/classtypes', require('./routes/ClassTypesRoute'))
 
-app.listen(port, console.log(`Application is running at port ${port}`))
+app.listen(port, console.log(`Application is running at http://localhost:${port}`))
