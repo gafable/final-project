@@ -1,5 +1,7 @@
 const Room = require('./../models/Room')
-const Suite = require('./../models')
+
+const ClassType = require('./../models/ClassType')
+
 async function index(request, response) {
     response.render('pages/index', {
         title: 'HighQua HomePage'
@@ -8,18 +10,12 @@ async function index(request, response) {
 
 async function rooms(request, response) {
     try {
-        await Room.find({}).populate({
-            path: 'classType',
-            match: {
-                type: "room"
-            },
-            model: "ClassType"
-        }).exec((error, rooms) => {
+        await ClassType.find({ type: "room" }, (error, classTypes) => {
             console.log(rooms);
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
-                rooms: rooms.filter(room => room.classType != null)
+                classTypes: classTypes
             })
         })
     } catch (error) {
@@ -27,22 +23,17 @@ async function rooms(request, response) {
     }
 }
 
-
 async function suite(request, response) {
     try {
-        await Suite.find({}).populate({
-            path: 'classType',
-            match: {
-                type: "suite"
-            },
-            model: "ClassType"
-        }).exec((error, suite) => {
+        await ClassType.find({ type: "suite" }, (error, classTypes) => {
             console.log(suite);
             if (error) return response.redirect('back')
             response.render('pages/suite', {
                 title: 'HighQua Suite',
-                rooms: suite.filter(suite => suite.classType != null)
+                classTypes: classTypes,
+
             })
+            console.log(classTypes)
         })
     } catch (error) {
         console.log(error);
@@ -52,13 +43,17 @@ async function suite(request, response) {
 async function availableRooms(request, response) {
 
     try {
-        await Room.find({}).populate('classType').exec((error, rooms) => {
-            console.log(rooms)
+        await Room.find({}).populate({
+            path: 'classType',
+            match: {
+                type: "suite"
+            },
+            model: "ClassType"
+        }).exec((error, rooms) => {
             if (error) return response.redirect('back')
             response.render('pages/suite', {
                 title: 'HighQua Suite Lists',
-                rooms: rooms.filter(room => room.classType.type == "suite")
-
+                rooms: rooms
             })
         })
     } catch (error) {
@@ -84,19 +79,13 @@ async function services(request, response) {
     })
 }
 
-// async function suite(request, response) {
-//     response.render('pages/suite', {
-//         title: 'HighQua Suite'
-//     })
-// }
-
 async function reservation(request, response) {
     response.render('pages/reservation', {
         title: 'HighQua Reservation'
     })
 }
 async function profile(request, response) {
-    response.render('pages/clientProfile', {
+    response.render('pages/client-profile', {
         layout: 'layouts/client',
         header: 'Profile info '
     })

@@ -8,17 +8,23 @@
             </div>
             <div class="card-body">
 
-                <form action="#!" method="post">
+                <form action="/auth" method="GET">
                     <div class="form-group row">
-                        <label for="firstname" class="col-sm-3 col-form-label col-form-label">Firstnme</label>
+                        <label for="firstname" class="col-sm-3 col-form-label col-form-label">Firstname</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control" id="firstname" name="firstname">
+                            <input type="text" class="form-control form-control" id="firstName" name="firstname">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lastname" class="col-sm-3 col-form-label col-form-label">Lastname</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control" id="lastname" name="lastname">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="middlename" class="col-sm-3 col-form-label col-form-label">Middle Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control" id="middlename" name="middlename">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -91,16 +97,18 @@
                             <input type="password" class="form-control form-control" id="currentPassword" name="currentPassword">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="confirmPassword" class="col-sm-3 col-form-label col-form-label">Confirmm Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control form-control" id="confirmPassword" name="confirmPassword">
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label for="newPassword" class="col-sm-3 col-form-label col-form-label">New Password</label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control form-control" id="newPassword" name="newPassword">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="confirmPassword" class="col-sm-3 col-form-label col-form-label">Confirm Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control form-control" id="confirmPassword" name="confirmPassword">
                         </div>
                     </div>
                     <div class="text-right">

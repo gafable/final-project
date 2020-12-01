@@ -29,11 +29,51 @@ async function store(request, response) {
 
     }
 }
+
+function createProfile(request, response) {
+    try {
+        console.log(request.body);
+        const profile = {
+            firstname: request.body.firstname,
+            lasttname: request.body.lasttname,
+            firstname: request.body.firstname,
+            middlename: request.body.middlename,
+            birthday: request.body.birthday,
+            age: request.body.age,
+            address: request.body.address,
+            account:
+        }
+    } catch (error) {
+
+    }
+
+}
 async function update(request, response) {
+
+    const accountToUpdate = parseRequestBody(request.body)
+    await Account.updateOne({ _id: request.params.id }, accountToUpdate, (error, result) => {
+        if (error) {
+            response.render('/accounts/profile', {
+                layout: layout,
+                header: 'Update Account',
+                account: new Account(),
+                error: error
+            })
+        }
+        response.redirect('/')
+    })
 
 }
 async function destroy(request, response) {
 
+}
+
+
+async function profile(request, response) {
+    response.render('pages/client-profile', {
+        layout: 'layouts/client',
+        header: 'Profile info '
+    })
 }
 
 function clients(request, response) {
@@ -68,5 +108,7 @@ module.exports = {
     update,
     destroy,
     clients,
-    employees
+    employees,
+    profile,
+    createProfile
 }
