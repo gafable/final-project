@@ -41,7 +41,7 @@ function createProfile(request, response) {
             birthday: request.body.birthday,
             age: request.body.age,
             address: request.body.address,
-            account:
+            // account:
         }
     } catch (error) {
 
