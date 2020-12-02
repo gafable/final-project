@@ -144,7 +144,7 @@ async function account(request, response) {
             response.render('pages/bookings/account', {
                 layout: 'layouts/client',
                 title: 'Booking List',
-                account: bookings[0].account,
+                account: request.user,
                 bookings: bookings,
                 header: 'Bookings'
             })
