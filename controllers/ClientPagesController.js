@@ -1,5 +1,4 @@
 const Room = require('./../models/Room')
-
 const ClassType = require('./../models/ClassType')
 
 async function index(request, response) {
