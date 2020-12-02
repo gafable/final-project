@@ -9603,6 +9603,10 @@ div.cs-select span {
     color: #52565b;
 }
 
+.hotel-content {
+    margin-left: 10px;
+}
+
 #fh5co-hotel-section .hotel-content .hotel-grid {
     background-repeat: no-repeat;
     background-size: cover;

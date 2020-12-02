@@ -218,22 +218,22 @@
                         <div class="hotel-content">
                             <input type="hidden" class="room-id" value="<%= classType._id %>">
                             <div class="hotel-grid">
-                                <img src="public/images/blog.jpg" width="100%" alt="">
-                                <div class="price"><small>For as low as</small><span>$100/night</span></div>
+                                <img src="<%= classType.imageUrl %>" width="100%" alt="">
+                                <div class="price"><small>For as low as</small><span>  <%= classType.price %>/night </span></div>
                             </div>
                             <div class="desc">
-                                <h3>
+                                <h2 style="text-align: center;">
                                     <a href="#">
                                         <%= classType.name %> &bull;
-                                </h3>
-                                <h3>
-                                    <a href="#"> P
+                                            </h3>
+                                            <h3>
+                                                <a href="#"> P
                                     <%= classType.price %>
                                 </a>
-                                </h3>
-                                <button class="btn btn-sm w-50 btn-info more-info"> <i class="fa fa-info mr-3"></i>
+                                            </h3>
+                                            <button class="btn btn-sm w-50 btn-info more-info"> <i class="fa fa-info mr-3"></i>
                                 More Info</button>
-                                <a href="/bookings/classtypes/<%= classType._id %>" class="btn btn-sm w-50 btn-primary book-now"> <i class="ti-calendar mr-3"></i> Book Now</a>
+                                            <a href="/bookings/classtypes/<%= classType._id %>" class="btn btn-sm w-50 btn-primary book-now"> <i class="ti-calendar mr-3"></i> Book Now</a>
                             </div>
                         </div>
                     </div>

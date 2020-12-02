@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>
         <%- title = typeof title == 'undefined' ? 'Admin dashboard' : title %>
     </title>
@@ -25,6 +26,9 @@
 
     <!-- Page level plugins -->
     <script src="/public/admin/vendor/chart.js/Chart.min.js"></script>
+
+
+
 
 </head>
 
@@ -118,53 +122,53 @@
     <script src="/public/admin/js/demo/datatables-demo.js"></script>
     <script src="/public/admin/js/admin.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script>
-    $('#bookingDate').daterangepicker({
-    "maxSpan": {
-        "days": 14
-    },
-    "locale": {
-        "format": "YYYY-MM-DD",
-        "separator": " / ",
-        "applyLabel": "Apply",
-        "cancelLabel": "Cancel",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-            "Sun",
-            "Mon",
-            "Tue",
-            "Wed",
-            "Thu",
-            "Fri",
-            "Sat"
-        ],
-        "monthNames": [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        ],
-        "firstDay": 1
-    },
-    "startDate": new Date(),
-    "minDate": new Date(),
-    "opens": "center",
-    "drops": "up",
-    "cancelClass": "btn-danger"
-});
-</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        $('#bookingDate').daterangepicker({
+            "maxSpan": {
+                "days": 14
+            },
+            "locale": {
+                "format": "YYYY-MM-DD",
+                "separator": " / ",
+                "applyLabel": "Apply",
+                "cancelLabel": "Cancel",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Sun",
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat"
+                ],
+                "monthNames": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                "firstDay": 1
+            },
+            "startDate": new Date(),
+            "minDate": new Date(),
+            "opens": "center",
+            "drops": "up",
+            "cancelClass": "btn-danger"
+        });
+    </script>
 
 </body>
 
