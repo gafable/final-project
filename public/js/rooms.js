@@ -1,19 +1,19 @@
 $('.more-info').click(function() {
     $id = $('.room-id').val()
     $.get("/classtypes/show/" + $id, function(data, textStatus, jqXHR) {
-        if (textStatus == "success") {
-            $modal = $('#classTypeModal');
-            $modal.find('.title').text(data.classType.name);
-            $modal.find('.image').css('background-image', `url('/public/images/blog.jpg')`);
-            $modal.find('.subtitle').text(data.classType.name);
-            $modal.find('#descriptionData').html(data.classType.description)
-            let features = ""
-            data.classType.features.forEach(feature => features += `<ul>${feature} </ul>`)
-            $modal.find('#features').html(features)
-            $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
-            $modal.modal('show');
-            console.log(data.room);
-        }
+
+        $modal = $('#classTypeModal');
+        $modal.find('.title').text(data.classType.name);
+        $modal.find('.image').css('background-image', `url(${data.classType.imageUrl})`);
+        $modal.find('.subtitle').text(data.classType.name);
+        $modal.find('#descriptionData').html(data.classType.description)
+        let features = ""
+        data.classType.features.forEach(feature => features += `<ul>${feature} </ul>`)
+        $modal.find('#features').html(features)
+        $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
+        $modal.modal('show');
+        console.log(data.room);
+
     });
 })
 
