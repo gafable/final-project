@@ -1,4 +1,4 @@
-$('.hotel-content').click(function() {
+$('.hotel-content img').click(function() {
     $id = $(this).find('.room-id').val()
     $.get("/classtypes/show/" + $id, function(data, textStatus, jqXHR) {
         if (textStatus == "success") {
@@ -28,7 +28,7 @@ $('button.check').click(function(e) {
         },
         success: function(data, status) {
             if (status == "success") {
-                if(data.classType.rooms.length){
+                if (data.classType.rooms.length) {
                     $('#room').val(data.classType.rooms[0]._id)
                     $('.book-now').prop('disabled', false)
                     $('.helper-msg').text(`There ${data.classType.rooms.length}  room available for this classtype you can book now.`)
@@ -36,12 +36,12 @@ $('button.check').click(function(e) {
                     $('button.check').css('display', 'none').fadeOut(5000);
                     $('.book-now').addClass('btn-block').fadeIn(5000);
                     $('button.check').find('i.fa').css('display', 'none')
-                }else{
+                } else {
                     $('.helper-msg').text(`There is no  room available for this classtype you can't book now. Try to change the date`)
-               
+
                     $('button.check').find('i.fa').css('display', 'none')
                 }
-               
+
                 console.log(data.classType.name);
             }
         }

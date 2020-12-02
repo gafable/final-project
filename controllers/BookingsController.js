@@ -2,16 +2,23 @@ const Booking = require('./../models/Booking')
 const Room = require('../models/Room')
 const ClassType = require('./../models/ClassType')
 const parseRequestBody = require('./../utilities/parseRequestBody')
+const Account = require('../modules/account/models/Account')
 
 async function index(request, response) {
     try {
         await Booking.find({}).populate('account').populate({
             path: 'room',
             populate: {
-                path: 'classType'
+                path: 'classType',
+
             }
         }).exec((error, bookings) => {
+            console.log(bookings);
             if (error) return response.redirect('back')
+
+            bookings = bookings.filter((booking) => {
+                return booking.room.classType
+            })
             response.render('admin/bookings/index', {
                 layout: 'layouts/admin',
                 title: 'Booking List',
@@ -75,12 +82,21 @@ async function store(request, response) {
         }
         await Room.findOne({ _id: request.body.room }, (error, room) => {
             if (!error) {
+
                 new Booking(booking).save((error, booking) => {
                     if (error) return response.redirect('back')
                     room.bookings.push(booking)
                     room.save()
-                    response.redirect('back')
-                    console.log('booking save');
+                    Account.findOne({ _id: request.user._id }, (error, account) => {
+                        if (error) {
+                            if (error) return response.redirect('back')
+                        }
+                        account.bookings.push(booking)
+                        account.save()
+                        response.redirect('back')
+                        console.log('booking save');
+                    })
+
                 })
             }
         })

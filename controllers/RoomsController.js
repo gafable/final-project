@@ -5,14 +5,14 @@ const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
-        await Room.find({classType:{ $ne : null}}).populate('classType').exec((error, rooms) => {
+        await Room.find({ classType: { $ne: null } }).populate('classType').exec((error, rooms) => {
             if (error) {
                 return response.status(500).json({
                     error: error
                 })
             }
             console.log(rooms);
-        
+            rooms = rooms.filter(room => room.classType)
             response.render('admin/rooms/index', {
                 layout: layout,
                 header: 'Rooms',

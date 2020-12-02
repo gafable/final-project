@@ -46,22 +46,22 @@ async function createProfile(request, response) {
             account: request.user._id
         }
         await
-            await Account.findOne({ _id: request.user._id }, (error, account) => {
-                new AccountInfo(profile).save((err, accountInfo) => {
-                    if (err) {
-                        console.log(err);
-                        return response.render('pages/client-profile', {
-                            layout: 'layouts/client',
-                            header: 'Profile info '
-                        })
+        await Account.findOne({ _id: request.user._id }, (error, account) => {
+            new AccountInfo(profile).save((err, accountInfo) => {
+                if (err) {
+                    console.log(err);
+                    return response.render('pages/client-profile', {
+                        layout: 'layouts/client',
+                        header: 'Profile info '
+                    })
 
-                    }
-                    account.accountInfo = account
-                    account.save()
+                }
+                account.accountInfo = account
+                account.save()
 
-                    response.redirect('/')
-                })
+                response.redirect('/')
             })
+        })
 
     } catch (error) {
         console.log(error);
@@ -96,7 +96,7 @@ async function profile(request, response) {
             return response.redirect('back')
         }
         console.log(account.accountInfo);
-       
+
         response.render('pages/client-profile', {
             layout: 'layouts/client',
             header: 'Profile info ',
@@ -108,11 +108,23 @@ async function profile(request, response) {
 
 }
 
-function clients(request, response) {
-    response.render('admin/accounts/clients', {
-        layout: 'layouts/admin',
-        header: 'Clients'
-    })
+async function clients(request, response) {
+    try {
+        await Account.find({ accountType: "client" }).populate('bookings').exec((error, accounts) => {
+            if (error) return response.redirect('back')
+            response.render('admin/accounts/clients', {
+                layout: 'layouts/admin',
+                header: 'Clients',
+                title: 'Clients List',
+                accounts: accounts
+            })
+        })
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
+
+
 }
 
 function employees(request, response) {
