@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 // ---- Assign instance of express to variable app ---- //
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 env.config()
