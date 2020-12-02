@@ -5,15 +5,19 @@ module.exports = (request, response, next) => {
 
     //if there is no token stored in cookies, the request is unauthorized
     if (!accessToken || Object.keys(accessToken).length === 0 && accessToken.constructor === Object) {
-        return request.user = null
-    }
-
-    try {
-        request.user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
-        next()
-    } catch (error) {
-        console.log(error.name + ' : ' + error.message);
         request.user = null
         next()
+
+    } else {
+        try {
+            request.user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+            next()
+        } catch (error) {
+            console.log(error.name + ' : ' + error.message);
+            request.user = null
+            response.redirect('back')
+        }
     }
+
+
 }

@@ -15,7 +15,7 @@
                         <th>Status</th>
                         <th>Total</th>
                         <th>Class Type</th>
-                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tfoot>
@@ -27,7 +27,7 @@
                         <th>Status</th>
                         <th>Total</th>
                         <th>Class Type</th>
-                        <th>Actions</th>
+
                     </tr>
                 </tfoot>
                 <tbody>
@@ -55,13 +55,7 @@
                                 <%= booking.room.classType.name %>
                             </td>
 
-                            <td>
-                                <% if (booking.status == "pending") { %>
-                                    <a href="/bookings/edit/<%= booking._id %>" class="btn btn-sm btn-success update-room">confirm</a>
-                                    <% }else { %>
-                                        <a href="/bookings/edit/<%= booking._id %>" class="btn btn-sm btn-success update-room" style="pointer-events: none; color: #ccc;">confirm</a>
-                                        <% } %>
-                            </td>
+
                         </tr>
                         <% }) %>
 

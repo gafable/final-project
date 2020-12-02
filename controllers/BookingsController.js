@@ -43,7 +43,8 @@ async function create(request, response) {
                 layout: 'layouts/app',
                 title: 'Create Booking',
                 classType: classType,
-                price: price
+                price: price,
+                user: request.user
             })
         })
     } catch (error) {

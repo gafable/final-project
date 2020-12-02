@@ -47,7 +47,7 @@ async function authenticate(request, response) {
             if (user.accountType == "admin") {
                 return response.redirect('/admin/dashboard')
             }
-            response.redirect('/')
+            response.redirect('/accounts/profile/show')
         })
     } catch (error) {
         console.log(error);
