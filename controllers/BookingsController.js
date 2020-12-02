@@ -1,23 +1,31 @@
 const Booking = require('./../models/Booking')
 const Room = require('../models/Room')
 const ClassType = require('./../models/ClassType')
+const parseRequestBody = require('./../utilities/parseRequestBody')
+const Account = require('../modules/account/models/Account')
 
 async function index(request, response) {
     try {
-          await Booking.find({}).populate('account').populate({
-              path : 'room',
-              populate : {
-                  path : 'classType'
-              }
-          }).exec((error,bookings)=>{
+        await Booking.find({}).populate('account').populate({
+            path: 'room',
+            populate: {
+                path: 'classType',
+
+            }
+        }).exec((error, bookings) => {
+            console.log(bookings);
             if (error) return response.redirect('back')
-            response.render('admin/bookings/index',{
-                layout : 'layouts/admin',
-                title : 'Booking List',
-                bookings : bookings,
-                header : 'Bookings'
+
+            bookings = bookings.filter((booking) => {
+                return booking.room.classType
             })
-          })  
+            response.render('admin/bookings/index', {
+                layout: 'layouts/admin',
+                title: 'Booking List',
+                bookings: bookings,
+                header: 'Bookings'
+            })
+        })
     } catch (error) {
         console.log(error);
         response.redirect('back')
@@ -35,7 +43,8 @@ async function create(request, response) {
                 layout: 'layouts/app',
                 title: 'Create Booking',
                 classType: classType,
-                price: price
+                price: price,
+                user: request.user
             })
         })
     } catch (error) {
@@ -47,13 +56,14 @@ async function create(request, response) {
 
 async function edit(request, response) {
     try {
-        await Booking.findOne({_id:request.params.id},(error,booking)=>{
+        await Booking.findOne({ _id: request.params.id }).populate('room').populate('account').exec((error, booking) => {
+            console.log(booking);
             if (error) return response.redirect('back')
-            response.render('admin/bookings/update',{
+            response.render('admin/bookings/update', {
                 layout: 'layouts/admin',
                 title: 'Update Booking',
-                header : 'Update Booking',
-                booking : booking
+                header: 'Confirm Booking',
+                booking: booking
             })
         })
     } catch (error) {
@@ -63,20 +73,31 @@ async function edit(request, response) {
 async function store(request, response) {
     try {
         const bookingDate = request.body.bookingDate.replace(/ /g, '').split('/')
+        const price = request.body.price.replace(',', '').split('.')[0]
         const booking = {
-            checkIn: bookingDate[0],
-            checkOut: bookingDate[1],
+            checkIn: new Date(bookingDate[0]).toLocaleDateString(),
+            checkOut: new Date(bookingDate[1]).toLocaleDateString(),
             account: request.user._id,
-            room: request.body.room
+            room: request.body.room,
+            total: calculateTotal(bookingDate, price)
         }
         await Room.findOne({ _id: request.body.room }, (error, room) => {
             if (!error) {
+
                 new Booking(booking).save((error, booking) => {
                     if (error) return response.redirect('back')
                     room.bookings.push(booking)
                     room.save()
-                    response.redirect('back')
-                    console.log('booking save');
+                    Account.findOne({ _id: request.user._id }, (error, account) => {
+                        if (error) {
+                            if (error) return response.redirect('back')
+                        }
+                        account.bookings.push(booking)
+                        account.save()
+                        response.redirect('back')
+                        console.log('booking save');
+                    })
+
                 })
             }
         })
@@ -90,10 +111,48 @@ async function store(request, response) {
 
 async function update(request, response) {
 
+    await Booking.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+        if (error) {
+            response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                error: error
+            })
+        }
+        response.redirect('/bookings')
+    })
 }
 
 async function destroy(request, response) {
 
+}
+
+async function account(request, response) {
+    try {
+        await Booking.find({ account: request.user._id }).populate('account').populate({
+            path: 'room',
+            populate: {
+                path: 'classType',
+
+            }
+        }).exec((error, bookings) => {
+            if (error) return response.redirect('back')
+
+            bookings = bookings.filter((booking) => {
+                return booking.room.classType
+            })
+            response.render('pages/bookings/account', {
+                layout: 'layouts/client',
+                title: 'Booking List',
+                account: bookings[0].account,
+                bookings: bookings,
+                header: 'Bookings'
+            })
+        })
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
 }
 
 async function check(request, response) {
@@ -104,28 +163,31 @@ async function check(request, response) {
             model: 'Room',
             populate: {
                 path: 'bookings',
-                model: 'Booking'
+                model: 'Booking',
             }
         }).exec((error, result) => {
-            if(error) return response.status(500).json({message : "Server Error."})
-            result.rooms = result.rooms.filter((room)=>{
-                if(!room.bookings.length) return room
+            if (error) {
+                console.log(error)
+                return response.status(500).json({ message: "Server Error." })
+            }
+            result.rooms = result.rooms.filter((room) => {
+                if (!room.bookings.length) return room
                 var available = false;
-                for(let i = 0; i < room.bookings.length ;i++ ){
-                    if( ! (new Date(room.bookings[i].checkIn).getTime() + 8.64e+7  <= new Date(bookingDate[0]).getTime()) || 
-                        ! (new Date(room.bookings[i].checkOut).getTime() + 8.64e+7>= new Date(bookingDate[0]).getTime()))
-                    {
+                for (let i = 0; i < room.bookings.length; i++) {
+                    if (!(new Date(room.bookings[i].checkIn).toLocaleDateString() <= new Date(bookingDate[0]).toLocaleDateString() &&
+                            new Date(room.bookings[i].checkOut).toLocaleDateString() >= new Date(bookingDate[0]).toLocaleDateString())) {
                         available = true
                         break
                     }
                 }
-                 if(available) return room
-              
+                if (available) return room
+
             })
             response.status(200).json({
                 classType: result
             })
         })
+
     } catch (error) {
         console.log(error);
         response.status(500).json({
@@ -134,6 +196,14 @@ async function check(request, response) {
     }
 }
 
+function calculateTotal(date, price) {
+    console.log(date);
+    let [checkIn, checkOut] = date
+    checkIn = new Date(checkIn).getTime()
+    checkOut = new Date(checkOut).getTime()
+    let differ_in_days = (checkOut - checkIn) / (1000 * 3600 * 24)
+    return differ_in_days < 1 ? price : price * differ_in_days;
+}
 module.exports = {
     index,
     edit,
@@ -141,5 +211,6 @@ module.exports = {
     update,
     destroy,
     create,
-    check
+    check,
+    account
 }

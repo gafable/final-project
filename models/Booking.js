@@ -15,6 +15,10 @@ const BookingSchema = new mongoose.Schema({
         default: "pending",
         required: false
     },
+    total: {
+        type: Number,
+        required: true
+    },
     account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Account"

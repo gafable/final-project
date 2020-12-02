@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 // ---- Assign instance of express to variable app ---- //
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 env.config()
@@ -42,7 +42,7 @@ const VerifyJwtToken = require('./middleware/VerifyToken')
 const IsAdmin = require('./middleware/IsAdmin')
 
 // ---- Define all application routes ---- //
-app.use('/', require('./routes/ClientPagesRoutes'))
+app.use('/', require('./middleware/GetAuthenticatedUser'), require('./routes/ClientPagesRoutes'))
 app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
 app.use('/admin', [VerifyJwtToken, IsAdmin], require('./routes/AdminPagesRoutes'))
 app.use('/accounts', require('./modules/account/routes/AccountRoutes'))
@@ -51,4 +51,4 @@ app.use('/rooms', require('./routes/RoomsRoute'))
 app.use('/bookings', require('./routes/BookingsRoute'))
 app.use('/classtypes', require('./routes/ClassTypesRoute'))
 
-app.listen(port, console.log(`Application is running at port ${port}`))
+app.listen(port, console.log(`Application is running at http://localhost:${port}`))

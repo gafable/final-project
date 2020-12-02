@@ -15,7 +15,7 @@
                         <th>Status</th>
                         <th>Total</th>
                         <th>Class Type</th>
-                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tfoot>
@@ -27,7 +27,7 @@
                         <th>Status</th>
                         <th>Total</th>
                         <th>Class Type</th>
-                        <th>Actions</th>
+
                     </tr>
                 </tfoot>
                 <tbody>
@@ -36,7 +36,9 @@
                             <td>
                                 <%= booking.account.username %>
                             </td>
-                            <td><%= booking.room.no %> </td>
+                            <td>
+                                <%= booking.room.no %>
+                            </td>
                             <td>
                                 <%= booking.checkIn.toISOString().replace('T',' ').replace('Z',' ').split(' ')[0] %>
                             </td>
@@ -47,19 +49,13 @@
                                 <%= booking.status %>
                             </td>
                             <td>
-                                <%= booking.total %> 
+                                <%= booking.total %>
                             </td>
                             <td>
                                 <%= booking.room.classType.name %>
                             </td>
 
-                            <td>
-                                <% if (booking.status == "pending") { %>
-                                    <a href="/bookings/edit/<%= booking._id %>"  class="btn btn-sm btn-success update-room">confirm</a>
-                                <% }else { %>
-                                    <a href="/bookings/edit/<%= booking._id %>"  class="btn btn-sm btn-success update-room" style="pointer-events: none; color: #ccc;">confirm</a>
-                                <% } %> 
-                            </td>
+
                         </tr>
                         <% }) %>
 
