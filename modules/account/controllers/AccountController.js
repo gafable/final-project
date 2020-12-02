@@ -31,13 +31,35 @@ async function store(request, response) {
         console.log(error);
     }
 }
+
+
+
+async function update(request, response) {
+    await Account.findOneAndUpdate({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+        if (error) {
+            response.render('/accounts/profile', {
+                layout: layout,
+                header: 'Update Account',
+                account: new Account(),
+                error: error
+            })
+        }
+        response.redirect('back')
+    })
+
+}
+
+
+async function destroy(request, response) {
+
+}
 async function createProfile(request, response) {
     try {
 
         console.log(request.body);
         const profile = {
             firstname: request.body.firstname,
-            lasttname: request.body.lasttname,
+            lastname: request.body.lastname,
             firstname: request.body.firstname,
             middlename: request.body.middlename,
             birthday: request.body.birthday,
@@ -45,7 +67,7 @@ async function createProfile(request, response) {
             address: request.body.address,
             account: request.user._id
         }
-        await
+
         await Account.findOne({ _id: request.user._id }, (error, account) => {
             new AccountInfo(profile).save((err, accountInfo) => {
                 if (err) {
@@ -56,56 +78,56 @@ async function createProfile(request, response) {
                     })
 
                 }
-                account.accountInfo = account
-                account.save()
+                account.accountInfo = accountInfo
+                account.save((error) => {
+                    if (!error) {
+                        response.redirect('/accounts/profile/show')
+                    }
+                })
 
-                response.redirect('/')
+
             })
         })
 
     } catch (error) {
         console.log(error);
+        response.redirect('back')
     }
 }
-
-
-async function update(request, response) {
-
-    const accountToUpdate = parseRequestBody(request.body)
-    await Account.findOneAndUpdate({ _id: request.params.id }, accountToUpdate, (error, result) => {
-        if (error) {
-            response.render('/accounts/profile', {
-                layout: layout,
-                header: 'Update Account',
-                account: new Account(),
-                error: error
-            })
-        }
-        response.redirect('/')
-    })
-
-}
-
-
-async function destroy(request, response) {
-
-}
 async function profile(request, response) {
-    await Account.findOne({ _id: request.user._id }).populate('accountInfo').exec((error, account) => {
-        if (error) {
-            return response.redirect('back')
-        }
-        console.log(account.accountInfo);
+    try {
+        await Account.findOne({ _id: request.user._id }).populate('accountInfo').exec((error, account) => {
+            if (error) {
+                return response.redirect('back')
+            }
+            response.render('pages/client-profile', {
+                layout: 'layouts/client',
+                header: 'Profile info ',
+                title: 'Account Profile',
+                account: account
 
-        response.render('pages/client-profile', {
-            layout: 'layouts/client',
-            header: 'Profile info ',
-            title: 'Account Profile',
-            account: account
-
+            })
         })
-    })
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
 
+
+}
+
+async function updateProfile(request, response) {
+    try {
+
+        await AccountInfo.updateOne({ account: request.user._id },
+            parseRequestBody(request.body), (error, accountInfo) => {
+                if (error) return response.redirect('back')
+                response.redirect('/accounts/profile/show')
+            })
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
 }
 
 async function clients(request, response) {
@@ -154,5 +176,6 @@ module.exports = {
     clients,
     employees,
     profile,
-    createProfile
+    createProfile,
+    updateProfile
 }

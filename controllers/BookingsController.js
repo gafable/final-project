@@ -126,6 +126,34 @@ async function destroy(request, response) {
 
 }
 
+async function account(request, response) {
+    try {
+        await Booking.find({ account: request.user._id }).populate('account').populate({
+            path: 'room',
+            populate: {
+                path: 'classType',
+
+            }
+        }).exec((error, bookings) => {
+            if (error) return response.redirect('back')
+
+            bookings = bookings.filter((booking) => {
+                return booking.room.classType
+            })
+            response.render('pages/bookings/account', {
+                layout: 'layouts/client',
+                title: 'Booking List',
+                account: bookings[0].account,
+                bookings: bookings,
+                header: 'Bookings'
+            })
+        })
+    } catch (error) {
+        console.log(error);
+        response.redirect('back')
+    }
+}
+
 async function check(request, response) {
     try {
         const bookingDate = request.query.bookingDate.replace(/ /g, '').split('/')
@@ -182,5 +210,6 @@ module.exports = {
     update,
     destroy,
     create,
-    check
+    check,
+    account
 }

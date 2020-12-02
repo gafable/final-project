@@ -1,5 +1,5 @@
-$('.hotel-content img').click(function() {
-    $id = $(this).find('.room-id').val()
+$('.more-info').click(function() {
+    $id = $('.room-id').val()
     $.get("/classtypes/show/" + $id, function(data, textStatus, jqXHR) {
         if (textStatus == "success") {
             $modal = $('#classTypeModal');
@@ -10,6 +10,7 @@ $('.hotel-content img').click(function() {
             let features = ""
             data.classType.features.forEach(feature => features += `<ul>${feature} </ul>`)
             $modal.find('#features').html(features)
+            $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
             $modal.modal('show');
             console.log(data.room);
         }

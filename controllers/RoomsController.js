@@ -16,7 +16,8 @@ async function all(request, response) {
             response.render('admin/rooms/index', {
                 layout: layout,
                 header: 'Rooms',
-                rooms: rooms
+                rooms: rooms,
+                user: request.user
             })
         })
     } catch (error) {

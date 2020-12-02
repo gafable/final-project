@@ -4,7 +4,8 @@ const ClassType = require('./../models/ClassType')
 
 async function index(request, response) {
     response.render('pages/index', {
-        title: 'HighQua HomePage'
+        title: 'HighQua HomePage',
+        user: request.user
     })
 }
 
@@ -15,7 +16,8 @@ async function rooms(request, response) {
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
-                classTypes: classTypes
+                classTypes: classTypes,
+                user: request.user
             })
         })
     } catch (error) {
@@ -31,7 +33,7 @@ async function suite(request, response) {
             response.render('pages/suite', {
                 title: 'HighQua Suite',
                 classTypes: classTypes,
-
+                user: request.user
             })
             console.log(classTypes)
         })
@@ -53,7 +55,8 @@ async function availableRooms(request, response) {
             if (error) return response.redirect('back')
             response.render('pages/suite', {
                 title: 'HighQua Suite Lists',
-                rooms: rooms
+                rooms: rooms,
+                user: request.user
             })
         })
     } catch (error) {
@@ -64,30 +67,28 @@ async function availableRooms(request, response) {
 
 async function blogs(request, response) {
     response.render('pages/blog', {
-        title: 'HighQua Blog'
+        title: 'HighQua Blog',
+        user: request.user
     })
 }
 
 async function contact(request, response) {
     response.render('pages/contact', {
-        title: 'HighQua Contact'
+        title: 'HighQua Contact',
+        user: request.user
     })
 }
 async function services(request, response) {
     response.render('pages/services', {
-        title: 'HighQua Services'
+        title: 'HighQua Services',
+        user: request.user
     })
 }
 
 async function reservation(request, response) {
     response.render('pages/reservation', {
-        title: 'HighQua Reservation'
-    })
-}
-async function profile(request, response) {
-    response.render('pages/client-profile', {
-        layout: 'layouts/client',
-        header: 'Profile info '
+        title: 'HighQua Reservation',
+        user: request.user
     })
 }
 
@@ -100,5 +101,4 @@ module.exports = {
     suite,
     reservation,
     availableRooms,
-    profile
 }

@@ -54,7 +54,8 @@ async function dashboard(request, response) {
             layout: layout,
             header: 'Dashboard',
             rooms: rooms,
-            sum: sum.total_bookings
+            sum: sum.total_bookings,
+            user: request.user
         })
     } catch (error) {
         console.log(error);
