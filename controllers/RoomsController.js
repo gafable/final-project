@@ -5,17 +5,18 @@ const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
-        await Room.find({}).populate('classType').exec((error, result) => {
+        await Room.find({classType:{ $ne : null}}).populate('classType').exec((error, rooms) => {
             if (error) {
                 return response.status(500).json({
                     error: error
                 })
             }
-            console.log(result);
+            console.log(rooms);
+        
             response.render('admin/rooms/index', {
                 layout: layout,
                 header: 'Rooms',
-                rooms: result
+                rooms: rooms
             })
         })
     } catch (error) {
@@ -114,8 +115,7 @@ async function edit(request, response) {
     })
 }
 async function update(request, response) {
-    const roomToUpdate = parseRequestBody(request.body)
-    await Room.updateOne({ _id: request.params.id }, roomToUpdate, (error, result) => {
+    await Room.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
         if (error) {
             response.render('admin/rooms/update', {
                 layout: layout,

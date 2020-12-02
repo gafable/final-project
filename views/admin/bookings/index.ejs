@@ -54,7 +54,11 @@
                             </td>
 
                             <td>
-                                <a href="/bookings/edit/<%= booking._id %> " class="btn btn-sm btn-success update-room">update</a>
+                                <% if (booking.status == "pending") { %>
+                                    <a href="/bookings/edit/<%= booking._id %>"  class="btn btn-sm btn-success update-room">confirm</a>
+                                <% }else { %>
+                                    <a href="/bookings/edit/<%= booking._id %>"  class="btn btn-sm btn-success update-room" style="pointer-events: none; color: #ccc;">confirm</a>
+                                <% } %> 
                             </td>
                         </tr>
                         <% }) %>

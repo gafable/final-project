@@ -1,6 +1,7 @@
 const Booking = require('./../models/Booking')
 const Room = require('../models/Room')
 const ClassType = require('./../models/ClassType')
+const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function index(request, response) {
     try {
@@ -47,12 +48,13 @@ async function create(request, response) {
 
 async function edit(request, response) {
     try {
-        await Booking.findOne({ _id: request.params.id }, (error, booking) => {
+        await Booking.findOne({ _id: request.params.id }).populate('room').populate('account').exec((error, booking) => {
+            console.log(booking);
             if (error) return response.redirect('back')
             response.render('admin/bookings/update', {
                 layout: 'layouts/admin',
                 title: 'Update Booking',
-                header: 'Update Booking',
+                header: 'Confirm Booking',
                 booking: booking
             })
         })
@@ -92,6 +94,16 @@ async function store(request, response) {
 
 async function update(request, response) {
 
+    await Booking.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+        if (error) {
+            response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                error: error
+            })
+        }
+        response.redirect('/bookings')
+    })
 }
 
 async function destroy(request, response) {
@@ -126,7 +138,6 @@ async function check(request, response) {
                 if (available) return room
 
             })
-            console.log(result);
             response.status(200).json({
                 classType: result
             })
