@@ -24,22 +24,27 @@ async function index(request, response) {
 }
 
 async function store(request, response) {
-    console.log(request.file);
-    const classType = {
-        name: request.body.name,
-        type: request.body.type,
-        capacity: request.body.capacity,
-        imageUrl: request.file.destination + '/' + request.file.filename,
-        price: request.body.price,
-        description: request.body.description,
-        features: request.body.features
+    try {
+        const classType = {
+            name: request.body.name,
+            type: request.body.type,
+            capacity: request.body.capacity,
+            imageUrl: request.file.destination + '/' + request.file.filename,
+            price: request.body.price,
+            description: request.body.description,
+            features: request.body.features
+        }
+        await new ClassType(classType).save().then((classType) => {
+            response.redirect('/classtypes')
+        }).catch((error) => {
+            console.log(error);
+        })
+    } catch (error) {
+        return response.status(500).json({
+            error: error
+        })
     }
-    await new ClassType(classType).save().then((classType) => {
-        console.log(classType);
-        response.redirect('/classtypes')
-    }).catch((error) => {
-        console.log(error);
-    })
+
 }
 
 async function show(request, response) {
@@ -62,35 +67,49 @@ async function show(request, response) {
 }
 
 async function edit(request, response) {
-    await ClassType.findOne({ _id: request.params.id }, (error, result) => {
-        if (error) {
-            return response.render('admin/classTypes/', {
-                layout: layout,
+    try {
+        await ClassType.findOne({ _id: request.params.id }, (error, result) => {
+            if (error) {
+                return response.render('admin/classTypes/', {
+                    layout: layout,
+                    header: 'Update Class Type',
+                    errors: error
+                })
+            }
+            console.log(result);
+            response.render('admin/classTypes/update', {
+                layout: 'layouts/admin',
                 header: 'Update Class Type',
-                errors: error
+                classType: result
             })
-        }
-        console.log(result);
-        response.render('admin/classTypes/update', {
-            layout: 'layouts/admin',
-            header: 'Update Class Type',
-            classType: result
         })
-    })
+    } catch (error) {
+        return response.status(500).json({
+            error: error
+        })
+    }
+
 }
 async function update(request, response) {
-    const roomToUpdate = parseRequestBody(request.body)
-    await ClassType.updateOne({ _id: request.body.id }, roomToUpdate, (error, result) => {
-        if (error) {
-            response.render('admin/classtypes/update', {
-                layout: layout,
-                header: 'Update Room',
-                room: new Room(),
-                error: error
-            })
-        }
-        response.redirect('/classtypes')
-    })
+    try {
+        const roomToUpdate = parseRequestBody(request.body)
+        await ClassType.updateOne({ _id: request.body.id }, roomToUpdate, (error, result) => {
+            if (error) {
+                response.render('admin/classtypes/update', {
+                    layout: layout,
+                    header: 'Update Room',
+                    room: new Room(),
+                    error: error
+                })
+            }
+            response.redirect('/classtypes')
+        })
+    } catch (error) {
+        return response.status(500).json({
+            error: error
+        })
+    }
+
 }
 
 async function destroy(request, response) {
