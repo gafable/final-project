@@ -1,5 +1,5 @@
 $('.more-info').click(function() {
-    $id = $('.room-id').val()
+    $id = $(this).closest('.hotel-content').find('input.room-id').val()
     $.get("/classtypes/show/" + $id, function(data, textStatus, jqXHR) {
 
         $modal = $('#classTypeModal');
@@ -11,8 +11,9 @@ $('.more-info').click(function() {
         data.classType.features.forEach(feature => features += `<ul>${feature} </ul>`)
         $modal.find('#features').html(features)
         $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
+        $modal.find('.price>span').html(`&#x20b1; ${data.classType.price}/nigth`)
         $modal.modal('show');
-        console.log(data.room);
+        console.log(data.classType);
 
     });
 })

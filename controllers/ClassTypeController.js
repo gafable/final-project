@@ -82,7 +82,8 @@ async function edit(request, response) {
             response.render('admin/classTypes/update', {
                 layout: 'layouts/admin',
                 header: 'Update Class Type',
-                classType: result
+                classType: result,
+                user: request.user
             })
         })
     } catch (error) {

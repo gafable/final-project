@@ -9623,10 +9623,10 @@ div.cs-select span {
 }
 
 #fh5co-hotel-section .hotel-content .hotel-grid>div {
-    width: 110px;
+    width: 200px;
     position: absolute;
     top: 0;
-    left: -110px;
+    left: -200px;
     padding: 10px;
     background: #ff5722;
     color: #fff;
