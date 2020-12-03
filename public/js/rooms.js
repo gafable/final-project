@@ -11,7 +11,7 @@ $('.more-info').click(function() {
         data.classType.features.forEach(feature => features += `<li>${feature} </li>`)
         $modal.find('#features').html(features)
         $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
-        $modal.find('.price>span').html(`&#x20b1; ${data.classType.price}/nigth`)
+        $modal.find('.price>span').html(`&#x20b1; ${data.classType.price}/night`)
         $modal.modal('show');
         console.log(data.classType);
 
@@ -29,23 +29,23 @@ $('button.check').click(function(e) {
             bookingDate: $('#bookingDate').val()
         },
         success: function(data, status) {
-            if (status == "success") {
-                if (data.classType.rooms.length) {
-                    $('#room').val(data.classType.rooms[0]._id)
-                    $('.book-now').prop('disabled', false)
-                    $('.helper-msg').text(`There ${data.classType.rooms.length}  room available for this classtype you can book now.`)
-                    $('button.check').find('i.fa').css('display', 'none')
-                    $('button.check').css('display', 'none').fadeOut(5000);
-                    $('.book-now').addClass('btn-block').fadeIn(5000);
-                    $('button.check').find('i.fa').css('display', 'none')
-                } else {
-                    $('.helper-msg').text(`There is no  room available for this classtype you can't book now. Try to change the date`)
 
-                    $('button.check').find('i.fa').css('display', 'none')
-                }
+            if (data.classType.rooms.length) {
+                $('#room').val(data.classType.rooms[0]._id)
+                $('.book-now').prop('disabled', false)
+                $('.helper-msg').text(`There ${data.classType.rooms.length}  room available for this classtype you can book now.`)
+                $('button.check').find('i.fa').css('display', 'none')
+                $('button.check').css('display', 'none').fadeOut(5000);
+                $('.book-now').addClass('btn-block').fadeIn(5000);
+                $('button.check').find('i.fa').css('display', 'none')
+            } else {
+                $('.helper-msg').text(`There is no  room available for this classtype you can't book now. Try to change the date`)
 
-                console.log(data.classType.name);
+                $('button.check').find('i.fa').css('display', 'none')
             }
+
+            console.log(data.classType.name);
+
         }
     });
 });

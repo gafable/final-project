@@ -96,7 +96,7 @@ async function store(request, response) {
                         }
                         account.bookings.push(booking)
                         account.save()
-                        response.redirect('back')
+                        response.redirect('/bookings/accounts')
                         console.log('booking save');
                     })
 
