@@ -29,7 +29,7 @@ async function store(request, response) {
             name: request.body.name,
             type: request.body.type,
             capacity: request.body.capacity,
-            imageUrl: request.file.destination + '/' + request.file.filename,
+            imageUrl: '/' + request.file.destination + '/' + request.file.filename,
             price: request.body.price,
             description: request.body.description,
             features: request.body.features
@@ -37,7 +37,9 @@ async function store(request, response) {
         await new ClassType(classType).save().then((classType) => {
             response.redirect('/classtypes')
         }).catch((error) => {
-            console.log(error);
+            return response.status(500).json({
+                error: error
+            })
         })
     } catch (error) {
         return response.status(500).json({
