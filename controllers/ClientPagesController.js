@@ -4,7 +4,8 @@ const ClassType = require('./../models/ClassType')
 async function index(request, response) {
     response.render('pages/index', {
         title: 'HighQua HomePage',
-        user: request.user
+        user: request.user,
+        routeIs: 'home'
     })
 }
 
@@ -16,7 +17,8 @@ async function rooms(request, response) {
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
                 classTypes: classTypes,
-                user: request.user
+                user: request.user,
+                routeIs: 'rooms'
             })
         })
     } catch (error) {
@@ -32,7 +34,8 @@ async function suite(request, response) {
             response.render('pages/suite', {
                 title: 'HighQua Suite',
                 classTypes: classTypes,
-                user: request.user
+                user: request.user,
+                routeIs: 'suites'
             })
             console.log(classTypes)
         })
@@ -41,53 +44,34 @@ async function suite(request, response) {
     }
 }
 
-async function availableRooms(request, response) {
-
-    try {
-        await Room.find({}).populate({
-            path: 'classType',
-            match: {
-                type: "suite"
-            },
-            model: "ClassType"
-        }).exec((error, rooms) => {
-            if (error) return response.redirect('back')
-            response.render('pages/suite', {
-                title: 'HighQua Suite Lists',
-                rooms: rooms,
-                user: request.user
-            })
-        })
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
 async function blogs(request, response) {
     response.render('pages/blog', {
         title: 'HighQua Blog',
-        user: request.user
+        user: request.user,
+        routeIs: 'blogs'
     })
 }
 
 async function contact(request, response) {
     response.render('pages/contact', {
         title: 'HighQua Contact',
-        user: request.user
+        user: request.user,
+        routeIs: 'contact'
     })
 }
 async function services(request, response) {
     response.render('pages/services', {
         title: 'HighQua Services',
-        user: request.user
+        user: request.user,
+        routeIs: 'services'
     })
 }
 
 async function reservation(request, response) {
     response.render('pages/reservation', {
         title: 'HighQua Reservation',
-        user: request.user
+        user: request.user,
+        routeIs: 'reservation'
     })
 }
 
@@ -99,5 +83,4 @@ module.exports = {
     services,
     suite,
     reservation,
-    availableRooms,
 }
