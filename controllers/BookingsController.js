@@ -45,7 +45,8 @@ async function create(request, response) {
                 title: 'Create Booking',
                 classType: classType,
                 price: price,
-                user: request.user
+                user: request.user,
+                routeIs: 'booking.create'
             })
         })
     } catch (error) {

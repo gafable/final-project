@@ -8,7 +8,7 @@ $('.more-info').click(function() {
         $modal.find('.subtitle').text(data.classType.name);
         $modal.find('#descriptionData').html(data.classType.description)
         let features = ""
-        data.classType.features.forEach(feature => features += `<ul>${feature} </ul>`)
+        data.classType.features.forEach(feature => features += `<li>${feature} </li>`)
         $modal.find('#features').html(features)
         $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
         $modal.find('.price>span').html(`&#x20b1; ${data.classType.price}/nigth`)
