@@ -11,7 +11,8 @@ async function index(request, response) {
                 layout: 'layouts/admin',
                 title: 'Class Type',
                 header: 'Class Types',
-                classTypes: result
+                classTypes: result,
+                user: request.user
             })
         })
     } catch (error) {

@@ -23,7 +23,8 @@ async function index(request, response) {
                 layout: 'layouts/admin',
                 title: 'Booking List',
                 bookings: bookings,
-                header: 'Bookings'
+                header: 'Bookings',
+                user: request.user
             })
         })
     } catch (error) {

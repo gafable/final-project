@@ -48,13 +48,16 @@ async function dashboard(request, response) {
             }
         }])
         console.log(bookings);
+        var sum = { total_bookings: 0 }
+        if (rooms.length) {
+            sum = rooms.reduce((a, b) => ({ total_bookings: a.total_bookings + b.total_bookings }))
+        }
 
-        let sum = rooms.reduce((a, b) => ({ total_bookings: a.total_bookings + b.total_bookings }))
         response.render('admin/dashboard', {
             layout: layout,
             header: 'Dashboard',
             rooms: rooms,
-            sum: sum.total_bookings,
+            sum: sum.total_bookings || 0,
             user: request.user
         })
     } catch (error) {

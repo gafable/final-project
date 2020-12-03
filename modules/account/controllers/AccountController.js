@@ -138,7 +138,8 @@ async function clients(request, response) {
                 layout: 'layouts/admin',
                 header: 'Clients',
                 title: 'Clients List',
-                accounts: accounts
+                accounts: accounts,
+                user: request.user
             })
         })
     } catch (error) {
