@@ -28,7 +28,7 @@ async function store(request, response) {
             name: request.body.name,
             type: request.body.type,
             capacity: request.body.capacity,
-            imageUrl: '/' + request.file.destination + '/' + request.file.filename,
+            imageUrl: request.file.destination + '/' + request.file.filename,
             price: request.body.price,
             description: request.body.description,
             features: request.body.features
@@ -85,6 +85,9 @@ async function edit(request, response) {
 async function update(request, response) {
     try {
         const roomToUpdate = parseRequestBody(request.body)
+        if(request.file){
+            roomToUpdate.imageUrl = request.file.destination + '/' + request.file.filename
+        }
         await ClassType.updateOne({ _id: request.body.id }, roomToUpdate, (error, result) => {
             if (error) {
                 return response.redirect('back')
