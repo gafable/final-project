@@ -50,7 +50,6 @@ async function authenticate(request, response) {
             response.redirect('/accounts/profile/show')
         })
     } catch (error) {
-        console.log(error);
         response.status(500).render('/auth/login')
     }
 }

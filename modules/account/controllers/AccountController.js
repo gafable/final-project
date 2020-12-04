@@ -1,16 +1,10 @@
 const Account = require('./../models/Account')
 const parseRequestBody = require('./../../../utilities/parseRequestBody');
 const AccountInfo = require('../models/AccountInfo');
-async function index(request, response) {
 
-}
-async function show(request, response) {
-
-}
 
 async function store(request, response) {
     try {
-        console.log(request.body);
         const account = {
             username: request.body.username,
             email: request.body.email,
@@ -28,35 +22,47 @@ async function store(request, response) {
             response.redirect('/')
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 
 
 
 async function update(request, response) {
-    await Account.findOneAndUpdate({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
-        if (error) {
-            response.render('/accounts/profile', {
-                layout: layout,
-                header: 'Update Account',
-                account: new Account(),
-                error: error
-            })
-        }
-        response.redirect('back')
-    })
+    try {
+        await Account.findOneAndUpdate({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+            if (error) {
+                response.render('/accounts/profile', {
+                    layout: layout,
+                    header: 'Update Account',
+                    account: new Account(),
+                    error: error
+                })
+            }
+            response.redirect('back')
+        })
+    } catch (error) {
+        return response.redirect('back')
+    }
+    
 
 }
 
 
 async function destroy(request, response) {
-
+    try {
+        await Account.deleteOne({_id : request.params.id},(error,result)=>{
+            if(error){
+                return response.redirect('back')
+            }
+            response.redirect('/accounts/clients')
+        })
+    } catch (error) {
+        return response.redirect('back')
+    }   
 }
 async function createProfile(request, response) {
     try {
-
-        console.log(request.body);
         const profile = {
             firstname: request.body.firstname,
             lastname: request.body.lastname,
@@ -70,13 +76,8 @@ async function createProfile(request, response) {
 
         await Account.findOne({ _id: request.user._id }, (error, account) => {
             new AccountInfo(profile).save((err, accountInfo) => {
-                if (err) {
-                    console.log(err);
-                    return response.render('pages/client-profile', {
-                        layout: 'layouts/client',
-                        header: 'Profile info '
-                    })
-
+                if (err) {          
+                    return response.redirect('back')
                 }
                 account.accountInfo = accountInfo
                 account.save((error) => {
@@ -84,8 +85,6 @@ async function createProfile(request, response) {
                         response.redirect('/accounts/profile/show')
                     }
                 })
-
-
             })
         })
 
@@ -105,7 +104,6 @@ async function profile(request, response) {
                 header: 'Profile info ',
                 title: 'Account Profile',
                 account: account
-
             })
         })
     } catch (error) {
@@ -164,13 +162,12 @@ function employees(request, response) {
     response.render('admin/accounts/employees', {
         layout: 'layouts/admin',
         header: 'Employees',
-        employees: employees
+        employees: employees,
+        user : request.user
     })
 }
 
 module.exports = {
-    index,
-    show,
     store,
     update,
     destroy,

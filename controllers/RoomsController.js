@@ -7,11 +7,8 @@ async function all(request, response) {
     try {
         await Room.find({ classType: { $ne: null } }).populate('classType').exec((error, rooms) => {
             if (error) {
-                return response.status(500).json({
-                    error: error
-                })
+                return response.redirect('back')
             }
-            console.log(rooms);
             rooms = rooms.filter(room => room.classType)
             response.render('admin/rooms/index', {
                 layout: layout,
@@ -21,49 +18,26 @@ async function all(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 
-async function available(request, response) {
-    response.render('admin/rooms/available', {
-        layout: layout,
-        header: 'Available Rooms'
-    })
-}
 
-async function reserved(request, response) {
-    response.render('admin/rooms/reserved', {
-        layout: layout,
-        header: 'Reserved Rooms'
-    })
-}
 
 async function history(request, response) {
     response.render('admin/rooms/history', {
         layout: layout,
-        header: 'Rooms History'
+        header: 'Rooms History',
+        user:request.user
     })
 }
 
-async function pendings(request, response) {
-    response.render('admin/rooms/pendings', {
-        layout: layout,
-        header: 'Pending Rooms'
-    })
-}
 
-async function checkAvailability(request, response) {
-    console.log(request.query.checkIn);
-    console.log(request.query.checkOut);
-    response.redirect('/rooms')
-}
 
 async function create(request, response) {
     try {
         await ClassType.findOne({ _id: request.body.classType }, (error, classType) => {
             if (error) {
-                console.log(error);
                 return response.redirect('back')
             }
             new Room({
@@ -81,65 +55,50 @@ async function create(request, response) {
 
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 
-async function show(request, response) {
-    await Room.findOne({ _id: request.params.id }).populate('classType').exec((error, room) => {
-        if (error) {
-            return response.status(404).json({
-                error: error
-            })
-        }
-        response.status(200).json({
-            room: room
-        })
-    })
-}
+
 
 async function edit(request, response) {
-    await Room.findOne({ _id: request.params.id }, (error, room) => {
-        if (error) {
-            return response.render('admin/rooms/update', {
-                layout: layout,
-                header: 'Update Room',
-                errors: error
-            })
-        }
-        console.log(room);
-        response.render('admin/rooms/update', {
-            layout: layout,
-            header: 'Update Room',
-            room: room
-        })
-    })
-}
-async function update(request, response) {
-    await Room.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
-        if (error) {
+    try {
+        await Room.findOne({ _id: request.params.id }, (error, room) => {
+            if (error) {
+                return response.redirect('back')
+            }
             response.render('admin/rooms/update', {
                 layout: layout,
                 header: 'Update Room',
-                room: new Room(),
-                error: error
+                room: room,
+                user: request.user
             })
-        }
-        response.redirect('/rooms/all')
-    })
+        })
+    } catch (error) {
+        return response.redirect('back')
+    }
+
+}
+async function update(request, response) {
+    try {
+        await Room.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+            if (error) {
+                return response.redirect('back')
+            }
+            response.redirect('/rooms/all')
+        })
+    } catch (error) {
+        return response.redirect('back')
+    }
+
 }
 
 
 
 module.exports = {
     all,
-    available,
-    reserved,
     history,
-    pendings,
     create,
     edit,
     update,
-    show,
-    checkAvailability
 }

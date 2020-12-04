@@ -12,7 +12,6 @@ async function index(request, response) {
 async function rooms(request, response) {
     try {
         await ClassType.find({ type: "room" }, (error, classTypes) => {
-            console.log(rooms);
             if (error) return response.redirect('back')
             response.render('pages/rooms/index', {
                 title: 'HighQua Room Lists',
@@ -22,7 +21,7 @@ async function rooms(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 
@@ -37,10 +36,9 @@ async function suite(request, response) {
                 user: request.user,
                 routeIs: 'suites'
             })
-            console.log(classTypes)
         })
     } catch (error) {
-        console.log(error);
+       return response.redirect('back')
     }
 }
 

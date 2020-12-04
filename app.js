@@ -46,7 +46,6 @@ app.use('/', require('./middleware/GetAuthenticatedUser'), require('./routes/Cli
 app.use('/auth', require('./modules/auth/routes/AuthRoutes'))
 app.use('/admin', [VerifyJwtToken, IsAdmin], require('./routes/AdminPagesRoutes'))
 app.use('/accounts', require('./modules/account/routes/AccountRoutes'))
-app.use('/reports', VerifyJwtToken, require('./routes/ReportsRoute'))
 app.use('/rooms', require('./routes/RoomsRoute'))
 app.use('/bookings', require('./routes/BookingsRoute'))
 app.use('/classtypes', require('./routes/ClassTypesRoute'))

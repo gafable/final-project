@@ -13,7 +13,6 @@ async function index(request, response) {
 
             }
         }).exec((error, bookings) => {
-            console.log(bookings);
             if (error) return response.redirect('back')
 
             bookings = bookings.filter((booking) => {
@@ -28,7 +27,6 @@ async function index(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
         response.redirect('back')
     }
 }
@@ -50,7 +48,6 @@ async function create(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
         response.redirect('back')
     }
 
@@ -58,18 +55,20 @@ async function create(request, response) {
 
 async function edit(request, response) {
     try {
-        await Booking.findOne({ _id: request.params.id }).populate('room').populate('account').exec((error, booking) => {
-            console.log(booking);
+        await Booking.findOne({ _id: request.params.id })
+        .populate('room').populate('account')
+        .exec((error, booking) => {
             if (error) return response.redirect('back')
             response.render('admin/bookings/update', {
                 layout: 'layouts/admin',
                 title: 'Update Booking',
                 header: 'Confirm Booking',
-                booking: booking
+                booking: booking,
+                user:request.user
             })
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 async function store(request, response) {
@@ -85,7 +84,6 @@ async function store(request, response) {
         }
         await Room.findOne({ _id: request.body.room }, (error, room) => {
             if (!error) {
-
                 new Booking(booking).save((error, booking) => {
                     if (error) return response.redirect('back')
                     room.bookings.push(booking)
@@ -97,14 +95,13 @@ async function store(request, response) {
                         account.bookings.push(booking)
                         account.save()
                         response.redirect('/bookings/accounts')
-                        console.log('booking save');
                     })
 
                 })
             }
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 
 }
@@ -112,22 +109,25 @@ async function store(request, response) {
 
 
 async function update(request, response) {
-
-    await Booking.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
-        if (error) {
-            response.render('admin/rooms/update', {
-                layout: layout,
-                header: 'Update Room',
-                error: error
-            })
-        }
-        response.redirect('/bookings')
-    })
+    try {
+        await Booking.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+            if (error) {
+                response.render('admin/rooms/update', {
+                    layout: layout,
+                    header: 'Update Room',
+                    error: error,
+                    user : request.user
+                })
+            }
+            response.redirect('/bookings')
+        }) 
+    } catch (error) {
+        return response.redirect('back')
+    }
+    
 }
 
-async function destroy(request, response) {
 
-}
 
 async function account(request, response) {
     try {
@@ -152,7 +152,6 @@ async function account(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
         response.redirect('back')
     }
 }
@@ -191,7 +190,6 @@ async function check(request, response) {
         })
 
     } catch (error) {
-        console.log(error);
         response.status(500).json({
             error: error
         })
@@ -211,7 +209,6 @@ module.exports = {
     edit,
     store,
     update,
-    destroy,
     create,
     check,
     account

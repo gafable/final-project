@@ -16,7 +16,6 @@ async function index(request, response) {
             })
         })
     } catch (error) {
-        console.log(error);
         response.redirect('back')
     }
 
@@ -42,9 +41,7 @@ async function store(request, response) {
             })
         })
     } catch (error) {
-        return response.status(500).json({
-            error: error
-        })
+        return response.redirect('back')
     }
 
 }
@@ -63,7 +60,6 @@ async function show(request, response) {
         response.status(500).json({
             message: "Server Error"
         })
-        console.log(error);
     }
 
 }
@@ -72,13 +68,8 @@ async function edit(request, response) {
     try {
         await ClassType.findOne({ _id: request.params.id }, (error, result) => {
             if (error) {
-                return response.render('admin/classTypes/', {
-                    layout: layout,
-                    header: 'Update Class Type',
-                    errors: error
-                })
+                return response.redirect('back')
             }
-            console.log(result);
             response.render('admin/classTypes/update', {
                 layout: 'layouts/admin',
                 header: 'Update Class Type',
@@ -87,9 +78,7 @@ async function edit(request, response) {
             })
         })
     } catch (error) {
-        return response.status(500).json({
-            error: error
-        })
+        return response.redirect('back')
     }
 
 }
@@ -98,25 +87,27 @@ async function update(request, response) {
         const roomToUpdate = parseRequestBody(request.body)
         await ClassType.updateOne({ _id: request.body.id }, roomToUpdate, (error, result) => {
             if (error) {
-                response.render('admin/classtypes/update', {
-                    layout: layout,
-                    header: 'Update Room',
-                    room: new Room(),
-                    error: error
-                })
+                return response.redirect('back')
             }
             response.redirect('/classtypes')
         })
     } catch (error) {
-        return response.status(500).json({
-            error: error
-        })
+        return response.redirect('back')
     }
 
 }
 
 async function destroy(request, response) {
-
+    try {
+        await ClassType.deleteOne({_id : request.params.id},(error,result)=>{
+            if(error){
+                return response.redirect('back')
+            }
+            response.redirect('/classtypes')
+        })
+    } catch (error) {
+         return response.redirect('back')
+    }
 }
 
 async function all(request, response) {
@@ -132,7 +123,6 @@ async function all(request, response) {
             })
         });
     } catch (error) {
-        console.log(error);
         response.ridirect('back')
     }
 }
