@@ -26,7 +26,15 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   }
   return s.join(dec);
 }
-
+async function getMonytlyIncome() {
+    await $.get("   ", data,
+      function (data, textStatus, jqXHR) {
+        
+      },
+      "dataType"
+    );
+}
+getMonytlyIncome()
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
