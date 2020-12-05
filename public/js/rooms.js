@@ -13,8 +13,6 @@ $('.more-info').click(function() {
         $modal.find('a.btn-luxe-primary').attr('href', '/bookings/classtypes/' + $id)
         $modal.find('.price>span').html(`&#x20b1; ${data.classType.price}/night`)
         $modal.modal('show');
-        console.log(data.classType);
-
     });
 })
 
@@ -43,8 +41,6 @@ $('button.check').click(function(e) {
 
                 $('button.check').find('i.fa').css('display', 'none')
             }
-
-            console.log(data.classType.name);
 
         }
     });
@@ -95,7 +91,6 @@ $('#bookingDate').daterangepicker({
         "firstDay": 1
     },
     "startDate": new Date(),
-    "minDate": new Date(),
     "opens": "center",
     "drops": "up",
     "cancelClass": "btn-danger"

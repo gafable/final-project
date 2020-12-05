@@ -193,7 +193,7 @@ async function check(request, response) {
         response.status(500).json({
             error: error
         })
-    }
+    }   
 }
 
 function calculateTotal(date, price) {

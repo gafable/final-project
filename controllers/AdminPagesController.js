@@ -1,5 +1,6 @@
 const layout = 'layouts/admin'
 const Booking = require('../models/Booking')
+const Account = require('../modules/account/models/Account')
 const Room = require('./../models/Room')
 const Romm = require('./../models/Room')
 async function dashboard(request, response) {
@@ -30,16 +31,11 @@ async function dashboard(request, response) {
             }
         }
         ])
+        const clients = await Account.find({ accountType: "client" }).count();
         let start = new Date()
         start.setDate(1)
         let end = new Date()
         end.setDate(5)
-        // let bookings = await Booking.find({
-        //     checkIn :{
-        //         $gte: start,
-        //         $lt: new Date(start.getFullYear(),start.getMonth()+1,0)
-        //     }
-        // })
 
         let monthly = await Booking.aggregate([{
             $match: {
@@ -58,6 +54,7 @@ async function dashboard(request, response) {
                 total: { "$sum": "$total" }
             }
         }])
+        const pending = await Booking.find({ status: "pending" }).count()
         let yearly = await Booking.aggregate([{
             $match: {
                 checkIn: {
@@ -75,8 +72,6 @@ async function dashboard(request, response) {
                 total: { "$sum": "$total" }
             }
         }])
-        console.log(yearly);
-        getMonthlyIncome()
         var sum = { total_bookings: 0 }
         if (rooms.length) {
             sum = rooms.reduce((a, b) => ({ total_bookings: a.total_bookings + b.total_bookings }))
@@ -87,9 +82,11 @@ async function dashboard(request, response) {
             header: 'Dashboard',
             rooms: rooms,
             monthly: formatMoney(monthly[0].total),
-            yearly : formatMoney(yearly[0].total),
+            yearly: formatMoney(yearly[0].total),
             sum: sum.total_bookings || 0,
-            user: request.user
+            user: request.user,
+            clients: clients,
+            pending: pending,
         })
     } catch (error) {
         console.log(error);
@@ -98,56 +95,57 @@ async function dashboard(request, response) {
 }
 
 function formatMoney(total) {
-    return Intl.NumberFormat("en-PH", {minimumFractionDigits: 2,}).format(total)
+    return Intl.NumberFormat("en-PH", { minimumFractionDigits: 2, }).format(total)
 }
-async function getMonthlyIncome() {
-    let months = {
-        1:0,
-        2:0,
-        3:0,
-        4:0,
-        5:0,
-        6:0,
-        7:0,
-        8:0,
-        9:0,
-        10:0,
-        11:0,
-        12:0,
-    }
-    let start = new Date()
-        start.setDate(1)
-        let end = new Date()
-        end.setDate(5)
-    let incomes = {}
-    let monthly = await Booking.aggregate([{
-        $match: {
-            checkIn: {
-                $gte: start,
-                $lt: end
-            },
-            status: "confirmed"
-        },
+async function getMonthlyIncome(request, response) {
 
-    }, {
-        $group: {
-            _id: {
-                $month: "$checkIn"
-            },
-            total: { "$sum": "$total" }
+    try {
+        let months = {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
+            7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0,
         }
-    }])
-    const keys = Object.keys(months);
-    for (let index = 0; index < keys.length; index++) {
-        monthly.forEach((month)=>{
-            month._id == keys[index] ?
-            incomes[keys[index]] = month.total :
-            incomes[keys[index]] = 0
-        }) 
+        let incomes = {}
+        let date = new Date()
+        let monthly = await Booking.aggregate([{
+            $match: {
+                checkIn: {
+                    $gt: new Date(date.getFullYear(), 1, 1)
+                },
+                status: "confirmed"
+            },
+
+        }, {
+            $group: {
+                _id: {
+                    $month: "$checkIn"
+                },
+                total: { "$sum": "$total" }
+            },
+
+        }, { $sort: { _id: 1 } }])      
+        var keys = Object.keys(months);
+        for (let index = 0; index < keys.length; index++) {
+            for (let j = 0; j < monthly.length; j++) {
+                if(monthly[j]._id == keys[index]){
+                    incomes[keys[index]] = monthly[j].total
+                    break
+                }
+                incomes[keys[index]] = 0
+            }
+        }
+
+        return response.json({
+            data: incomes
+        })
+    } catch (error) {
+        console.log(error);
+        return response.json({
+            error: error
+        })
     }
-   console.log(incomes);
 }
 
 module.exports = {
-    dashboard
+    dashboard,
+    getMonthlyIncome
 }
