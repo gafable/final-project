@@ -4,15 +4,15 @@ module.exports = (request, response, next) => {
     let accessToken = request.cookies.jwt
 
     //if there is no token stored in cookies, the request is unauthorized
-    if (!accessToken) {
-        return response.redirect('/auth/login')
+    if (!accessToken || Object.keys(accessToken).length === 0 && accessToken.constructor === Object) {
+        return response.status(401).redirect('/auth/login')
     }
 
     try {
-        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+        request.user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
         next()
     } catch (error) {
-        console.log(error);
+        console.log(error.name + ' : ' + error.message);
         return response.redirect('/auth/login')
     }
 }

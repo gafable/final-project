@@ -1,4 +1,5 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
+$(document).ready(function () {
+  // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -26,10 +27,20 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   }
   return s.join(dec);
 }
+async function getMonytlyIncome() {
+    await $.get("/admin/monthly-income",
+      function (data, textStatus, jqXHR) {
+        Object.values(data.data).forEach((data)=>{
+          options.data.datasets[0].data.push(data)
+        })
+        new Chart(ctx, options );
+      },
+    );
+}
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+var options = {
   type: 'line',
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -46,7 +57,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [],
     }],
   },
   options: {
@@ -74,11 +85,11 @@ var myLineChart = new Chart(ctx, {
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
+          maxTicksLimit: 10,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return '₱' + number_format(value);
           }
         },
         gridLines: {
@@ -110,9 +121,12 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ₱' + number_format(tooltipItem.yLabel);
         }
       }
     }
   }
+}
+
+getMonytlyIncome()
 });

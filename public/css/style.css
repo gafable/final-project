@@ -35,6 +35,16 @@ h3 {
     padding-top: 30px;
 }
 
+.features {
+    margin-left: 25%;
+    margin-top: 10%;
+}
+
+.suiteLocation {
+    color: #000;
+    font-weight: 50px;
+}
+
 .modal-header-warning {
     /* padding-top: 10px; */
     padding-bottom: 5px;
@@ -9063,7 +9073,7 @@ div.cs-select span {
 }
 
 #availability .a-col {
-    width: 20%;
+    width: 40%;
     float: left;
     position: relative;
     padding: 14px;
@@ -9076,7 +9086,7 @@ div.cs-select span {
 }
 
 #availability .a-col.alternate {
-    width: 30%;
+    width: 60%;
 }
 
 @media screen and (max-width: 829px) {
@@ -9104,14 +9114,14 @@ div.cs-select span {
 
 #availability .a-col.action a {
     align-items: center;
-    vertical-align: middle;
-    heght: 100%;
+    height: 100%;
     line-height: 20px;
-    padding: 14px;
+    padding: 24px;
     display: block;
     width: 100%;
+    font-size: 16px;
     color: #fff;
-    text-align: left;
+    text-align: center;
     background: #3c4146;
     text-transform: uppercase;
     -webkit-transition: 0.5s;
@@ -9122,6 +9132,7 @@ div.cs-select span {
 #availability .a-col.action a::after {
     font-family: 'themify';
     speak: none;
+    vertical-align: middle;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -9134,7 +9145,7 @@ div.cs-select span {
     margin-top: -10px;
     content: "\e649";
     position: absolute;
-    font-size: 16px;
+    font-size: 10px;
     color: #FF5722;
     -webkit-transition: 0.2s;
     -o-transition: 0.2s;
@@ -9157,9 +9168,10 @@ div.cs-select span {
     text-decoration: none;
 }
 
-#availability .a-col.action a span {
+
+/* #availability .a-col.action a span {
     display: block;
-}
+} */
 
 #availability .a-col .input-field {
     width: 100%;
@@ -9171,7 +9183,7 @@ div.cs-select span {
 }
 
 #availability .a-col .input-field label {
-    margin-right: 10px;
+    margin-right: 5px;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -9183,7 +9195,7 @@ div.cs-select span {
 #availability .a-col .input-field input[type="text"] {
     float: right;
     margin-right: 0;
-    width: 60%;
+    width: 70%;
     height: 42px;
     font-size: 15px;
     line-height: 36px;
@@ -9591,6 +9603,10 @@ div.cs-select span {
     color: #52565b;
 }
 
+.hotel-content {
+    margin-left: 10px;
+}
+
 #fh5co-hotel-section .hotel-content .hotel-grid {
     background-repeat: no-repeat;
     background-size: cover;
@@ -9607,10 +9623,10 @@ div.cs-select span {
 }
 
 #fh5co-hotel-section .hotel-content .hotel-grid>div {
-    width: 110px;
+    width: 200px;
     position: absolute;
     top: 0;
-    left: -110px;
+    left: -200px;
     padding: 10px;
     background: #ff5722;
     color: #fff;

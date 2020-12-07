@@ -1,29 +1,39 @@
 const mongoose = require('mongoose')
 
 const AccountInfoSchema = new mongoose.Schema({
-    firstName: {
+    firstname: {
         type: String,
-        required: true
+        required: false,
+        default : null
     },
-    lastName: {
+    lastname: {
         type: String,
-        required: true
+        required: false,
+        default : null
     },
-    middleName: {
+    middlename: {
         type: String,
-        required: false
+        required: false,
+        default : null
     },
     birthday: {
         type: Date,
-        required: true,
+        required: false,
+        default : null
     },
     age: {
         type: Number,
-        required: false
+        required: false,
+        default : null
     },
     address: {
         type: String,
-        required: false
+        required: false,
+        default :null
+    },
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Account"
     }
 })
 

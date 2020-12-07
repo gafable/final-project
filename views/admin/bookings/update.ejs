@@ -1,0 +1,50 @@
+<!-- DataTales Example -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <div class="m-0 font-weight-bold ">
+            <a href="/bookings">bookings</a> / update
+        </div>
+    </div>
+    <div class="card-body ">
+        <form action="/bookings/update/<%= booking._id %>" method="post">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="customer">Customer</label>
+                    <input type="text" id="customer" class="form-control" value="<%= booking.account.username  %>"
+                        readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="checkIn">Check-in Date</label>
+                    <input type="text" id="checkIn" class="form-control"
+                        value="<%= booking.checkIn.toLocaleDateString()  %>" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="checkOut">Check-out Date</label>
+                    <input type="text" id="checkOut" class="form-control"
+                        value="<%= booking.checkOut.toLocaleDateString()  %>" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="total">Total</label>
+                    <input type="text" id="total" class="form-control" value="<%= booking.total  %>" readonly>
+                </div>
+                <div class="form-group col-md-12 row">
+                    <label for="status" class="col-sm-4 col-form-label">Update booking status</label>
+                    <div class="col-sm-8">
+                        <select name="status" id="status" class="form-control" name="status">
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirm</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+      
+    </div>
+    <div class="modal-footer">
+        
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+</div>

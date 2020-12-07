@@ -1,85 +1,104 @@
 const layout = 'layouts/admin'
-const Room = require('./../models/RoomModel')
+const ClassType = require('../models/ClassType')
+const Room = require('./../models/Room')
+const parseRequestBody = require('./../utilities/parseRequestBody')
 
 async function all(request, response) {
     try {
-        await Room.find({}, (error, result) => {
+        await Room.find({ classType: { $ne: null } }).populate('classType').exec((error, rooms) => {
             if (error) {
-                return response.status(500).json({
-                    error: error
-                })
+                return response.redirect('back')
             }
+            rooms = rooms.filter(room => room.classType)
             response.render('admin/rooms/index', {
                 layout: layout,
                 header: 'Rooms',
-                rooms: result
+                rooms: rooms,
+                user: request.user
             })
         })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
     }
 }
 
-async function available(request, response) {
-    response.render('admin/rooms/available', {
-        layout: layout,
-        header: 'Available Rooms'
-    })
-}
 
-async function reserved(request, response) {
-    response.render('admin/rooms/reserved', {
-        layout: layout,
-        header: 'Reserved Rooms'
-    })
-}
 
 async function history(request, response) {
     response.render('admin/rooms/history', {
         layout: layout,
-        header: 'Rooms History'
+        header: 'Rooms History',
+        user:request.user
     })
 }
 
-async function pendings(request, response) {
-    response.render('admin/rooms/pendings', {
-        layout: layout,
-        header: 'Pending Rooms'
-    })
-}
+
 
 async function create(request, response) {
     try {
-        const room = {
-            no: request.body.no,
-            imageUrl: request.file.path.replace(/\/\//g, "/"),
-            floorNo: request.body.floorNo,
-            type: request.body.type,
-            classType: request.body.classType,
-            price: request.body.price,
-            status: request.body.status,
-            description: request.body.description,
-            features: request.body.features
-        }
-        await new Room(room).save().then((room) => {
-            console.log(room);
-            response.redirect('/rooms/all')
-        }).catch((error) => {
-            console.log(error);
-        })
+        await ClassType.findOne({ _id: request.body.classType }, (error, classType) => {
+            if (error) {
+                return response.redirect('back')
+            }
+            new Room({
+                no: request.body.no,
+                floorNo: request.body.floorNo,
+                classType: classType,
+                status: request.body.status,
+            }).save((error, room) => {
+                if (!error) {
+                    classType.rooms.push(room)
+                    classType.save()
+                    response.redirect('back')
+                }
+            })
 
+        })
     } catch (error) {
-        console.log(error);
+        return response.redirect('back')
+    }
+}
+
+
+
+async function edit(request, response) {
+    try {
+        await Room.findOne({ _id: request.params.id }, (error, room) => {
+            if (error) {
+                return response.redirect('back')
+            }
+            response.render('admin/rooms/update', {
+                layout: layout,
+                header: 'Update Room',
+                room: room,
+                user: request.user
+            })
+        })
+    } catch (error) {
+        return response.redirect('back')
     }
 
+}
+async function update(request, response) {
+    try {
+        await Room.updateOne({ _id: request.params.id }, parseRequestBody(request.body), (error, result) => {
+            if (error) {
+                return response.redirect('back')
+            }
+            response.redirect('/rooms/all')
+        })
+    } catch (error) {
+        return response.redirect('back')
+    }
 
 }
 
+
+
 module.exports = {
     all,
-    available,
-    reserved,
     history,
-    pendings,
-    create
+    create,
+    edit,
+    update,
 }

@@ -1,0 +1,51 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <div class="m-0 font-weight-bold ">
+            <a href="/rooms/all">rooms</a> / update
+        </div>
+    </div>
+    <div class="card-body ">
+        <form action="/rooms/update/<%= room._id %>" method="POST" enctype="multipart/form-data" id="roomForm">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="no">Room #</label>
+                    <input type="text" class="form-control" id="no" value="<%= room.no %>" name="no" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="floorNo">Floor #</label>
+                    <input type="text" class="form-control" value="<%= room.floorNo %>" id="floorNo" name="floorNo" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="type">Type</label>
+                    <select id="type" name="type" class="form-control" required>
+                        <option value="room" <% if (room.type === "room") { %>
+                            <%= 'selected' %> 
+                        <% } %> >Rooms</option>
+                        <option value="suite" <% if (room.type === "suite") { %>
+                            <%= 'selected' %> 
+                        <% } %> >Suite</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="classType">Class Type</label>
+                    <select id="classType" data-value="<%= room.classType %> " name="classType" class="form-control classType" required>
+                    </select>
+                </div>
+                <div class="form-group col-md-6 ">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="form-control" required>
+                        <option value="available">Available</option>
+                        <option value="under_maintenance">Under maintenance</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+
+        </form>
+    </div>
+</div>

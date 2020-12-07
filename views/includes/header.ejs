@@ -6,31 +6,22 @@
                 <h1 id="fh5co-logo"><a href="/">HighQua Hotel </a></h1>
                 <nav id="fh5co-menu-wrap" role="navigation">
                     <ul class="sf-menu" id="fh5co-primary-menu">
-                        <li><a class="active" href="/">Home</a></li>
-                        <li>
-                            <a href="/rooms" class="fh5co-sub-ddown">Rooms</a>
-                            <!-- <ul class="fh5menuco-sub-">
-                                <li><a href="#"> Single Rooms </a></li>
-                                <li><a href="#"> Double Rooms </a></li>
-                                <li>
-                                    <a href="#" class="fh5co-sub-ddown">King Hotel</a>
-                                    <ul class="fh5co-sub-menu">
-                                        <li><a href="http://code-projects.org/" target="_blank">Build</a></li>
-                                        <li><a href="http://code-projects.org/" target="_blank">Work</a></li>
-                                        <li><a href="http://code-projects.org/" target="_blank">Light</a></li>
-                                        <li><a href="http://code-projects.org/" target="_blank">Relic</a></li>
-                                        <li><a href="http://code-projects.org/" target="_blank">Display</a></li>
-                                        <li><a href="http://code-projects.org/" target="_blank">Sprint</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Five Star Hotel</a></li>
-                            </ul> -->
-                        </li>
-                        <li> <a href="/suite"> Suite </a></li>
-                        <li><a href="/services">Services</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/auth/login">Login</a></li>
+                        <li><a class="<%= routeIs == 'home' ? 'active' : '' %>" href="/">Home</a></li>
+                        <li><a class="<%= routeIs == 'rooms' ? 'active' : '' %>" href="/rooms">Rooms</a></li>
+                        <li><a class="<%= routeIs == 'suites' ? 'active' : '' %>" href="/suite"> Suite </a></li>
+                        <li><a class="<%= routeIs ==  'services' ? 'active' :'' %>" href="/services">Services</a></li>
+                        <li><a class="<%= routeIs == 'blogs' ? 'active' : '' %>" href="/blog">Blog</a></li>
+                        <li><a class="<%= routeIs == 'contact' ? 'active' : '' %>" href="/contact">Contact</a></li>
+                        <% if(user){ %>
+                            <li>
+                                <a href="/accounts/profile/show">
+                                    <%= user.username %>
+                                </a>
+                            </li>
+                            <% }else{ %>
+                                <li><a href="/auth/login">Login</a></li>
+                                <% } %>
+
                     </ul>
                 </nav>
             </div>

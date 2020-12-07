@@ -3,11 +3,13 @@ const router = express.Router()
 const upload = require('./../middleware/Multer')
 const roomsController = require('../controllers/RoomsController')
 
-router.get('/all', roomsController.all)
-router.get('/pendings', roomsController.pendings)
-router.get('/available', roomsController.available)
-router.get('/reserved', roomsController.reserved)
-router.get('/history', roomsController.history)
-router.post('/create', upload.single('roomImage'), roomsController.create)
+const VerifyJwtToken = require('./../middleware/VerifyToken')
+const IsAdmin = require('./../middleware/IsAdmin')
+
+router.get('/all', [VerifyJwtToken, IsAdmin], roomsController.all)
+router.get('/history', [VerifyJwtToken, IsAdmin], roomsController.history)
+router.get('/edit/:id', [VerifyJwtToken, IsAdmin], roomsController.edit)
+router.post('/create', [VerifyJwtToken, IsAdmin, upload.single('roomImage')], roomsController.create)
+router.post('/update/:id', [VerifyJwtToken, IsAdmin, upload.single('roomImage')], roomsController.update)
 
 module.exports = router

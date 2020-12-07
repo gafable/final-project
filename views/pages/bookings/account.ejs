@@ -1,0 +1,66 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h4 class="m-0 font-weight-bold text-primary">List</h4>
+    </div>
+    <div class="card-body ">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Room #</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Class Type</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Room #</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Class Type</th>
+
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% bookings.forEach((booking)=>{ %>
+                        <tr>
+                            <td>
+                                <%= booking.account.username %>
+                            </td>
+                            <td>
+                                <%= booking.room.no %>
+                            </td>
+                            <td>
+                                <%= booking.checkIn.toISOString().replace('T',' ').replace('Z',' ').split(' ')[0] %>
+                            </td>
+                            <td>
+                                <%= booking.checkOut.toISOString().replace('T',' ').replace('Z',' ').split(' ')[0] %>
+                            </td>
+                            <td>
+                                <%= booking.status %>
+                            </td>
+                            <td>
+                                <%= booking.total %>
+                            </td>
+                            <td>
+                                <%= booking.room.classType.name %>
+                            </td>
+
+
+                        </tr>
+                        <% }) %>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
