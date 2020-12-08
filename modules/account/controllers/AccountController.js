@@ -19,7 +19,7 @@ async function store(request, response) {
                     layout: 'layouts/auth'
                 })
             }
-            response.redirect('/')
+            response.redirect('/auth/login')
         })
     } catch (error) {
         return response.redirect('back')
@@ -44,22 +44,22 @@ async function update(request, response) {
     } catch (error) {
         return response.redirect('back')
     }
-    
+
 
 }
 
 
 async function destroy(request, response) {
     try {
-        await Account.deleteOne({_id : request.params.id},(error,result)=>{
-            if(error){
+        await Account.deleteOne({ _id: request.params.id }, (error, result) => {
+            if (error) {
                 return response.redirect('back')
             }
             response.redirect('/accounts/clients')
         })
     } catch (error) {
         return response.redirect('back')
-    }   
+    }
 }
 async function createProfile(request, response) {
     try {
@@ -76,7 +76,7 @@ async function createProfile(request, response) {
 
         await Account.findOne({ _id: request.user._id }, (error, account) => {
             new AccountInfo(profile).save((err, accountInfo) => {
-                if (err) {          
+                if (err) {
                     return response.redirect('back')
                 }
                 account.accountInfo = accountInfo
@@ -163,7 +163,7 @@ function employees(request, response) {
         layout: 'layouts/admin',
         header: 'Employees',
         employees: employees,
-        user : request.user
+        user: request.user
     })
 }
 
