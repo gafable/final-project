@@ -6,42 +6,40 @@ const Romm = require('./../models/Room')
 async function dashboard(request, response) {
     try {
         let rooms = await Room.aggregate([{
-            "$lookup": {
-                "from": "bookings",
-                "localField": "bookings",
-                "foreignField": "_id",
-                "as": "room_bookings"
+                "$lookup": {
+                    "from": "bookings",
+                    "localField": "bookings",
+                    "foreignField": "_id",
+                    "as": "room_bookings"
+                },
             },
-        },
-        {
-            "$unwind": "$room_bookings"
-        },
-        {
-            "$unwind": "$room_bookings"
-        },
-        {
-            "$group": {
-                _id: "$no",
-                total_bookings: { "$sum": 1 }
+            {
+                "$unwind": "$room_bookings"
+            },
+            {
+                "$unwind": "$room_bookings"
+            },
+            {
+                "$group": {
+                    _id: "$no",
+                    total_bookings: { "$sum": 1 }
+                }
+            },
+            {
+                "$sort": {
+                    total_bookings: -1
+                }
             }
-        },
-        {
-            "$sort": {
-                total_bookings: -1
-            }
-        }
         ])
         const clients = await Account.find({ accountType: "client" }).count();
         let start = new Date()
         start.setDate(1)
-        let end = new Date()
-        end.setDate(5)
+
 
         let monthly = await Booking.aggregate([{
             $match: {
                 checkIn: {
                     $gte: start,
-                    $lt: end
                 },
                 status: "confirmed"
             },
@@ -58,8 +56,7 @@ async function dashboard(request, response) {
         let yearly = await Booking.aggregate([{
             $match: {
                 checkIn: {
-                    $gte: start,
-                    $lt: end
+                    $year: start,
                 },
                 status: "confirmed"
             },
@@ -101,8 +98,18 @@ async function getMonthlyIncome(request, response) {
 
     try {
         let months = {
-            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0,
-            7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+            8: 0,
+            9: 0,
+            10: 0,
+            11: 0,
+            12: 0,
         }
         let incomes = {}
         let date = new Date()
@@ -122,11 +129,11 @@ async function getMonthlyIncome(request, response) {
                 total: { "$sum": "$total" }
             },
 
-        }, { $sort: { _id: 1 } }])      
+        }, { $sort: { _id: 1 } }])
         var keys = Object.keys(months);
         for (let index = 0; index < keys.length; index++) {
             for (let j = 0; j < monthly.length; j++) {
-                if(monthly[j]._id == keys[index]){
+                if (monthly[j]._id == keys[index]) {
                     incomes[keys[index]] = monthly[j].total
                     break
                 }
