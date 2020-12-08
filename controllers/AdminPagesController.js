@@ -54,25 +54,20 @@ async function dashboard(request, response) {
         }])
         const pending = await Booking.find({ status: "pending" }).count()
         let yearly = await Booking.aggregate([{
-            $match: {
-                checkIn: {
-                    $year: start,
-                },
-                status: "confirmed"
-            },
-
-        }, {
             $group: {
                 _id: {
                     $year: "$checkIn"
                 },
                 total: { "$sum": "$total" }
-            }
+            },
+
         }])
         var sum = { total_bookings: 0 }
         if (rooms.length) {
             sum = rooms.reduce((a, b) => ({ total_bookings: a.total_bookings + b.total_bookings }))
         }
+        yearly = yearly.filter(year => year._id == new Date().getFullYear())
+        console.log(yearly)
 
         response.render('admin/dashboard', {
             layout: layout,
